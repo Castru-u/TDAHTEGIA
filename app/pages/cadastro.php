@@ -161,6 +161,7 @@
                         <label>
                         <input type="checkbox" id="aceito_termos_2" onclick="sincronizarCheckboxes(); fecharTermos();"> Aceito os 
                             <a href="../../app/pages/cadastro.html" onclick="fecharTermos(); return false;">termos de serviço</a>
+                            <button onclick="fecharTermos(); return false;">Fechar</button>
                         </label>
                     </div>
                 </form>
