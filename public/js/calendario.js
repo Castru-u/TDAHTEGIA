@@ -1,176 +1,149 @@
-
-// variaveis globais
-
+// Variáveis globais
 let nav = 0
 let clicked = null
 let events = localStorage.getItem('events') ? JSON.parse(localStorage.getItem('events')) : []
 
+// Variáveis do modal:
+const novoEventoModal = document.getElementById('newEventModal')
+const modalExcluirEvento = document.getElementById('deleteEventModal')
+const fundoModal = document.getElementById('modalBackDrop')
+const entradaTituloEvento = document.getElementById('eventTitleInput')
 
-// variavel do modal:
-const newEvent = document.getElementById('newEventModal')
-const deleteEventModal = document.getElementById('deleteEventModal')
-const backDrop = document.getElementById('modalBackDrop')
-const eventTitleInput = document.getElementById('eventTitleInput')
-// --------
-const calendar = document.getElementById('calendar') // div calendar:
-const weekdays = ['domingo','segunda-feira', 'terça-feira', 'quarta-feira', 'quinta-feira', 'sexta-feira', 'sábado'] //array with weekdays:
+// Elementos relacionados ao calendário:
+const calendario = document.getElementById('calendar')
+const diasDaSemana = ['domingo', 'segunda-feira', 'terça-feira', 'quarta-feira', 'quinta-feira', 'sexta-feira', 'sábado']
 
-//funções
+// Funções
 
-function openModal(date){
-  clicked = date
-  const eventDay = events.find((event)=>event.date === clicked)
- 
+function abrirModal(data){
+  clicked = data
+  const eventoDia = events.find((evento) => evento.date === clicked)
 
-  if (eventDay){
-   document.getElementById('eventText').innerText = eventDay.title
-   deleteEventModal.style.display = 'block'
-
-
-  } else{
-    newEvent.style.display = 'block'
-
+  if (eventoDia) {
+    document.getElementById('eventText').innerText = eventoDia.title
+    modalExcluirEvento.style.display = 'block'
+  } else {
+    novoEventoModal.style.display = 'block'
   }
 
-  backDrop.style.display = 'block'
+  fundoModal.style.display = 'block'
 }
 
-//função load() será chamada quando a pagina carregar:
+// Função load() é chamada quando a página carrega:
+function carregar() {
+  const data = new Date()
 
-function load (){ 
-  const date = new Date() 
-  
-
-  //mudar titulo do mês:
-  if(nav !== 0){
-    date.setMonth(new Date().getMonth() + nav) 
+  // Mudar o título do mês:
+  if (nav !== 0) {
+    data.setMonth(new Date().getMonth() + nav)
   }
-  
-  const day = date.getDate()
-  const month = date.getMonth()
-  const year = date.getFullYear()
 
-  
-  
-  const daysMonth = new Date (year, month + 1 , 0).getDate()
-  const firstDayMonth = new Date (year, month, 1)
-  
+  const dia = data.getDate()
+  const mes = data.getMonth()
+  const ano = data.getFullYear()
 
-  const dateString = firstDayMonth.toLocaleDateString('pt-br', {
+  const diasMes = new Date(ano, mes + 1, 0).getDate()
+  const primeiroDiaMes = new Date(ano, mes, 1)
+
+  const dataString = primeiroDiaMes.toLocaleDateString('pt-br', {
     weekday: 'long',
-    year:    'numeric',
-    month:   'numeric',
-    day:     'numeric',
+    year: 'numeric',
+    month: 'numeric',
+    day: 'numeric',
   })
-  
 
-  const paddinDays = weekdays.indexOf(dateString.split(', ') [0])
-  
-  //mostrar mês e ano:
-  document.getElementById('monthDisplay').innerText = `${date.toLocaleDateString('pt-br',{month: 'long'})}, ${year}`
+  const diasDePreenchimento = diasDaSemana.indexOf(dataString.split(', ')[0])
 
-  
-  calendar.innerHTML =''
+  // Mostrar mês e ano:
+  document.getElementById('monthDisplay').innerText = `${data.toLocaleDateString('pt-br', { month: 'long' })}, ${ano}`
 
-  // criando uma div com os dias:
+  calendario.innerHTML = ''
 
-  for (let i = 1; i <= paddinDays + daysMonth; i++) {
-    const dayS = document.createElement('div')
-    dayS.classList.add('day')
+  // Criando as divs dos dias:
+  for (let i = 1; i <= diasDePreenchimento + diasMes; i++) {
+    const diaDiv = document.createElement('div')
+    diaDiv.classList.add('day')
 
-    const dayString = `${month + 1}/${i - paddinDays}/${year}`
+    const dataDiaString = `${mes + 1}/${i - diasDePreenchimento}/${ano}`
 
-    //condicional para criar os dias de um mês:
-     
-    if (i > paddinDays) {
-      dayS.innerText = i - paddinDays
-      
+    // Condicional para criar os dias do mês:
+    if (i > diasDePreenchimento) {
+      diaDiv.innerText = i - diasDePreenchimento
 
-      const eventDay = events.find(event=>event.date === dayString)
-      
-      if(i - paddinDays === day && nav === 0){
-        dayS.id = 'currentDay'
+      const eventoDia = events.find(evento => evento.date === dataDiaString)
+
+      if (i - diasDePreenchimento === dia && nav === 0) {
+        diaDiv.id = 'currentDay'
       }
 
-
-      if(eventDay){
-        const eventDiv = document.createElement('div')
-        eventDiv.classList.add('event')
-        eventDiv.innerText = eventDay.title
-        dayS.appendChild(eventDiv)
-
+      if (eventoDia) {
+        const eventoDiv = document.createElement('div')
+        eventoDiv.classList.add('event')
+        eventoDiv.innerText = eventoDia.title
+        diaDiv.appendChild(eventoDiv)
       }
 
-      dayS.addEventListener('click', ()=> openModal(dayString))
+      diaDiv.addEventListener('click', () => abrirModal(dataDiaString))
 
     } else {
-      dayS.classList.add('padding')
+      diaDiv.classList.add('padding')
     }
 
-    
-    calendar.appendChild(dayS)
+    calendario.appendChild(diaDiv)
   }
 }
 
-function closeModal(){
-  eventTitleInput.classList.remove('error')
-  newEvent.style.display = 'none'
-  backDrop.style.display = 'none'
-  deleteEventModal.style.display = 'none'
+function fecharModal() {
+  entradaTituloEvento.classList.remove('error')
+  novoEventoModal.style.display = 'none'
+  fundoModal.style.display = 'none'
+  modalExcluirEvento.style.display = 'none'
 
-  eventTitleInput.value = ''
+  entradaTituloEvento.value = ''
   clicked = null
-  load()
-
+  carregar()
 }
-function saveEvent(){
-  if(eventTitleInput.value){
-    eventTitleInput.classList.remove('error')
+
+function salvarEvento() {
+  if (entradaTituloEvento.value) {
+    entradaTituloEvento.classList.remove('error')
 
     events.push({
       date: clicked,
-      title: eventTitleInput.value
+      title: entradaTituloEvento.value
     })
 
     localStorage.setItem('events', JSON.stringify(events))
-    closeModal()
+    fecharModal()
 
-  }else{
-    eventTitleInput.classList.add('error')
+  } else {
+    entradaTituloEvento.classList.add('error')
   }
 }
 
-function deleteEvent(){
-
-  events = events.filter(event => event.date !== clicked)
+function excluirEvento() {
+  events = events.filter(evento => evento.date !== clicked)
   localStorage.setItem('events', JSON.stringify(events))
-  closeModal()
+  fecharModal()
 }
 
-// botões 
-
-function buttons (){
-  document.getElementById('backButton').addEventListener('click', ()=>{
+// Botões
+function botoes() {
+  document.getElementById('backButton').addEventListener('click', () => {
     nav--
-    load()
-    
+    carregar()
   })
 
-  document.getElementById('nextButton').addEventListener('click',()=>{
+  document.getElementById('nextButton').addEventListener('click', () => {
     nav++
-    load()
-    
+    carregar()
   })
 
-  document.getElementById('saveButton').addEventListener('click',()=> saveEvent())
-
-  document.getElementById('cancelButton').addEventListener('click',()=>closeModal())
-
-  document.getElementById('deleteButton').addEventListener('click', ()=>deleteEvent())
-
-  document.getElementById('closeButton').addEventListener('click', ()=>closeModal())
-  
+  document.getElementById('saveButton').addEventListener('click', () => salvarEvento())
+  document.getElementById('cancelButton').addEventListener('click', () => fecharModal())
+  document.getElementById('deleteButton').addEventListener('click', () => excluirEvento())
+  document.getElementById('closeButton').addEventListener('click', () => fecharModal())
 }
-buttons()
-load()
 
+botoes()
+carregar()

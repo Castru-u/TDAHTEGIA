@@ -1,57 +1,43 @@
 const html = document.querySelector('html')
 const checkbox = document.querySelector("input[name=theme]")
 
-const getStyle = (element, style) => 
+const getStyle = (elemento, estilo) => 
     window
-        .getComputedStyle(element)
-        .getPropertyValue(style)
+        .getComputedStyle(elemento)
+        .getPropertyValue(estilo)
 
-
-const initialColors = {
-  bodyColor: getStyle(html, '--body-color'),
-  headerColor: getStyle(html, '--header-color'),
-  headerButton: getStyle(html, '--header-button'),
-  colorWeekdays: getStyle(html, '--color-weekdays'),
-  currentDay: getStyle(html, '--current-day'),
-  eventColor: getStyle(html, '--event-color'),
-  eventColor: getStyle(html, '--event-color'),
-  colorDay: getStyle(html, '--color-day'),
-  modalEvent: getStyle(html, '--modal-event')
-  
-
-  
+const coresIniciais = {
+  corFundoCorpo: getStyle(html, '--body-color'),
+  corCabecalho: getStyle(html, '--header-color'),
+  corBotaoCabecalho: getStyle(html, '--header-button'),
+  corDiasSemana: getStyle(html, '--color-weekdays'),
+  corDiaAtual: getStyle(html, '--current-day'),
+  corEvento: getStyle(html, '--event-color'),
+  corDia: getStyle(html, '--color-day'),
+  corModalEvento: getStyle(html, '--modal-event')
 }
 
-const darkMode = {
-  bodyColor:'#282a36',
-  headerColor: '#ff5555',
-  headerButton:'#bd93f9',
-  colorWeekdays: '#6272a4' ,
-  currentDay: '#f8f8f2',
-  eventColor: '#6272a4',
-  colorDay: '#44475a',
-  modalEvent: '#6272a4'
-  
+const modoEscuro = {
+  corFundoCorpo: '#282a36',
+  corCabecalho: '#ff5555',
+  corBotaoCabecalho: '#bd93f9',
+  corDiasSemana: '#6272a4',
+  corDiaAtual: '#f8f8f2',
+  corEvento: '#6272a4',
+  corDia: '#44475a',
+  corModalEvento: '#6272a4'
 }
 
-const transformKey = key => 
-    "--" + key.replace(/([A-Z])/, "-$1").toLowerCase()
+const transformarChave = chave => 
+    "--" + chave.replace(/([A-Z])/, "-$1").toLowerCase()
 
-
-const changeColors = (colors) => {
-    Object.keys(colors).map(key => {
-        html.style.setProperty(transformKey(key), colors[key]) 
-        console.log(transformKey(key), colors[key])
+const mudarCores = (cores) => {
+    Object.keys(cores).map(chave => {
+        html.style.setProperty(transformarChave(chave), cores[chave])
       }
     )
-    console.log(colors)
 }
 
-
-
 checkbox.addEventListener("change", ({target}) => {
-    target.checked ? changeColors(darkMode) : changeColors(initialColors)
+    target.checked ? mudarCores(modoEscuro) : mudarCores(coresIniciais)
 })
-
-
-
