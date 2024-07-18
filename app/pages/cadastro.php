@@ -12,17 +12,47 @@
         function abrirTermos() {
             document.getElementById('termos-container').style.display = 'block';
             document.getElementById('dados').style.display = 'none';
-            document.getElementById('aceito_termos').disabled = false;
+            document.getElementById('aceito_termos_1').disabled = false;
         }
 
         function habilitarBotao() {
-            document.getElementById('cadastrar').disabled = !document.getElementById('aceito_termos').checked;
+            var checkbox1 = document.getElementById('aceito_termos_1');
+            var checkbox2 = document.getElementById('aceito_termos_2');
+
+            checkbox1.checked = checkbox2.checked;
+            document.getElementById('cadastrar').disabled = !checkbox1.checked;
         }
 
         function fecharTermos() {
             document.getElementById('termos-container').style.display = 'none';
             document.getElementById('dados').style.display = 'flex';
+            
         }
+
+        function sincronizarCheckboxes() {
+            var checkbox1 = document.getElementById('aceito_termos_1');
+            var checkbox2 = document.getElementById('aceito_termos_2');
+            
+            // Verifica qual checkbox está sendo clicado
+            if (event.target === checkbox1) {
+                console.log('Checkbox 1 clicado');
+                // Sincroniza checkbox2 com checkbox1
+                checkbox2.checked = checkbox1.checked;
+                
+                // Habilita ou desabilita checkbox2 baseado no estado de checkbox1
+                checkbox2.disabled = !checkbox1.checked;
+            } else if (event.target === checkbox2) {
+                console.log('Checkbox 2 clicado');
+                // Sincroniza checkbox1 com checkbox2
+                checkbox1.checked = checkbox2.checked;
+                
+                // Habilita ou desabilita checkbox1 baseado no estado de checkbox2
+                checkbox1.disabled = !checkbox2.checked;
+            }
+            
+            habilitarBotao(); // Atualiza o estado do botão de cadastro
+        }
+
     </script>
 </head>
 <body>
@@ -86,8 +116,8 @@
     
                         <div id="termos">
                             <label>
-                                <input type="checkbox" id="aceito_termos" disabled onclick="habilitarBotao()"> Aceito os 
-                                <a href="#" onclick="abrirTermos();">termos de serviço</a>
+                            <input type="checkbox" id="aceito_termos_1" onclick="sincronizarCheckboxes(); abrirTermos();"> Aceito os termos de serviço
+                                <a href="#" onclick="abrirTermos(); return false">termos de serviço</a>
                             </label>
                             <br>
                             <button type="submit" id="cadastrar" disabled>Cadastrar</button>   
@@ -129,9 +159,8 @@
                             Ao usar nosso Aplicativo, você confirma que leu e concorda com estes Termos de Uso e Política de Privacidade.
                         </p>
                         <label>
-                            <input type="checkbox" id="aceito_termos"  onclick=fecharTermos()> Aceito os 
+                        <input type="checkbox" id="aceito_termos_2" onclick="sincronizarCheckboxes(); fecharTermos();"> Aceito os 
                             <a href="../../app/pages/cadastro.html" onclick="fecharTermos(); return false;">termos de serviço</a>
-                            
                         </label>
                     </div>
                 </form>
