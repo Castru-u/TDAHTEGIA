@@ -1,0 +1,101 @@
+*{
+    padding: 0; 
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-image:url(../img/saibamais.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+
+main{
+    display: flex;
+	justify-content: space-around;
+	align-items: center;
+	flex: 20 1 500px;
+    height: 555px;
+    column-gap: 20px;
+    padding: 30px;
+}
+
+
+
+.voltar {
+    color: #FFF;
+    position: fixed;
+    left: 20px;
+    top: 20px;
+    font-size: 3rem;
+    font-variation-settings:
+      'FILL' 0,
+      'wght' 1000,
+      'GRAD' 300,
+      'opsz' 0
+}
+
+h1{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-bottom: 20px;
+	margin-top: 10px;
+	font-family: 'Roboto Slab', serif;
+	font-size: 30px;
+    
+}
+
+#text{
+    margin-top: -90px;
+    padding: 0.8rem 1.2rem;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 1px 1px 6px #0000001c;
+    font-size: 0.8rem;
+    width: 700px;
+    height: 400px;
+    padding-left: 50px;
+    padding-right: 50px;
+    margin-top: 300px;
+}
+
+#membros{
+    padding: 0.8rem 1.2rem;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 1px 1px 6px #0000001c;
+    font-size: 0.8rem;
+    width: 700px;
+    padding-left: 50px;
+    padding-right: 50px;
+    margin-top: 300px;
+}
+
+#fotos{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    overflow: auto;
+}
+
+.cards-name{
+    text-align: center;
+}
+
+img{
+    width: 150px;
+    border-radius: 30px;
+    border: solid px #ff7621;;
+}
+
+p{
+    text-align: justify;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 15px;
+}
+
+#text p{
+    font-size: 20px;
+}
