@@ -6,8 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!-- arquivos style -->
+  <link href="../../public/css/Modoescuro.css" rel="stylesheet">
   <link href="../../public/css/calendario.css" rel="stylesheet">
-  <link href="../../public/css/modoEscuro.css" rel="stylesheet">
 
   <title>Calendario</title>
 </head>
@@ -71,7 +71,7 @@
   <div id="modalBackDrop"></div>
 
 
-  <script src="../../public/js/Modo_escuro.js"></script>
+  <script src="../../public/js/ModoEscuro.js"></script>
   <script src="../../public/js/calendario.js"></script>
   
 </body>
