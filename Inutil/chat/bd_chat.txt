@@ -1,0 +1,7 @@
+create database chat;
+use chat;
+CREATE TABLE minichat (
+    ID INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(255) NOT NULL,
+    mensagem VARCHAR(255) NOT NULL
+);
