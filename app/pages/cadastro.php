@@ -97,26 +97,26 @@
         </div>
         <div id="direito" class="lado">
             <div id="caixa">
-                <form action="#" method="post">
+                <form action="../actions/usuario/cadastro_usuario.php" method="post">
                     <div id="dados">
                         <h1>Cadastre-se</h1>
                         
                         <div class="caixatexto">
-                            <input type="text" name="" id="" placeholder="Nome de usuário">
+                            <input type="text" name="nome" id="" placeholder="Nome de usuário">
                         </div>
                         <div class="caixatexto">
-                            <input type="text" name="" id="" placeholder="Email">
+                            <input type="text" name="email" id="" placeholder="Email">
                         </div>
                         <div class="caixatexto">
-                            <input type="password" name="" id="" placeholder="Senha">
+                            <input type="password" name="senha" id="" placeholder="Senha">
                         </div>
                         <div class="caixatexto">
-                            <input type="password" name="" id="" placeholder="Confirmar Senha">
+                            <input type="password" name="confirmar" id="" placeholder="Confirmar Senha">
                         </div>
     
                         <div id="termos">
                             <label>
-                            <input type="checkbox" id="aceito_termos_1" onclick="sincronizarCheckboxes(); abrirTermos();"> Aceito os termos de serviço
+                            <input type="checkbox" id="aceito_termos_1" onclick="sincronizarCheckboxes(); abrirTermos();"> Aceito os 
                                 <a href="#" onclick="abrirTermos(); return false">termos de serviço</a>
                             </label>
                             <br>
