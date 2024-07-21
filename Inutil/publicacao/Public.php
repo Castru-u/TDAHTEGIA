@@ -4,31 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Comentários</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
-            margin: 0;
+            margin-top: 100px;
             padding: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
-            margin-top: 10%;
+            
         }
-        .voltar {
-            color: black;
-            position: fixed;
-            left: 10%;
-            top: 5%;
-            font-size: 3rem;
-            font-variation-settings:
-            'FILL' 0,
-            'wght' 1000,
-            'GRAD' 300,
-            'opsz' 0
-        }
+
         .container {
             background: #fff;
             border-radius: 10px;
@@ -38,6 +26,39 @@
             text-align: center;
             margin-bottom: 20px; /* Espaçamento entre os containers */
         }
+
+        .perfil-foto {
+            display: flex;
+            align-items: center;
+            justify-content: left;
+        }
+
+        .perfil-foto img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .perfil-nome {
+            margin-left: 10px;
+            font-size: 24px;
+            color: #333;
+        }
+
+        .descricao img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin: 10px 0;
+        }
+
+        .descricao p {
+            font-size: 14px;
+            color: #666;
+            margin: 0;
+        }
+
         .comentarios {
             text-align: left;
             margin-top: 20px;
@@ -84,11 +105,15 @@
     </style>
 </head>
 <body>
-<a href="Public.php"><i class="material-symbols-outlined voltar">
-        arrow_back_ios
-    </i></a>
-    <!-- outra postagem -->
     <div class="container">
+        <div class="perfil-foto">
+            <img src="perfil.jpeg" alt="Foto do Usuário">
+            <h1 class="perfil-nome">THWAVERTON</h1>
+        </div>
+        <div class="descricao">
+            <img src="perfil.jpeg" alt="Postagem">
+            <p>Descrição da foto aqui. Esta é uma breve descrição sobre o que está na foto.</p>
+        </div>
         <div class="comentarios">
             <h2>Comentários</h2>
             <div class="comentario">
@@ -112,12 +137,30 @@
                 </div>
                 <p>Obrigado por compartilhar.</p>
             </div>
+            <!-- Adicione mais comentários conforme necessário -->
+        </div>
+        <div class="comentarios">
+                <a href="comentarios.php">Ver + Comentários</a>
+        </div>
+    </div>
+    <!-- outra postagem -->
+    <div class="container">
+        <div class="perfil-foto">
+            <img src="perfil.jpeg" alt="Foto do Usuário">
+            <h1 class="perfil-nome">THWAVERTON</h1>
+        </div>
+        <div class="descricao">
+            <img src="perfil.jpeg" alt="Postagem">
+            <p>Descrição da foto aqui. Esta é uma breve descrição sobre o que está na foto.</p>
+        </div>
+        <div class="comentarios">
+            <h2>Comentários</h2>
             <div class="comentario">
                 <div class="perfil_organizado">
                     <img src="perfil.jpeg" alt="Foto do Usuário">
                     <h3>THWAVERTON</h3>
                 </div>
-                <p>Interessante! Parece um lugar legal.</p>
+                <p>Ótima foto! Adorei.</p>
             </div>
             <div class="comentario">
                 <div class="perfil_organizado">
@@ -126,7 +169,16 @@
                 </div>
                 <p>Interessante! Parece um lugar legal.</p>
             </div>
-
+            <div class="comentario">
+                <div class="perfil_organizado">
+                    <img src="perfil.jpeg" alt="Foto do Usuário">
+                    <h3>THWAVERTON</h3>
+                </div>
+                <p>Obrigado por compartilhar.</p>
+            </div>
+            <div class="comentarios">
+                <a href="comentarios.php">Ver + Comentários</a>
+            </div>
             <!-- Adicione mais comentários conforme necessário -->
         </div>
     </div>
