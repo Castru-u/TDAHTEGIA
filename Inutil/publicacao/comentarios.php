@@ -84,7 +84,7 @@
     </style>
 </head>
 <body>
-<a href="Public.php"><i class="material-symbols-outlined voltar">
+<a href="publicacao.php"><i class="material-symbols-outlined voltar">
         arrow_back_ios
     </i></a>
     <!-- outra postagem -->
