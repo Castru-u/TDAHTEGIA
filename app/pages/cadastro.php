@@ -8,52 +8,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Alatsi|Kanit">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="shortcut icon" href="img/logo.png" type="image/x-icon">
-    <script>
-        function abrirTermos() {
-            document.getElementById('termos-container').style.display = 'block';
-            document.getElementById('dados').style.display = 'none';
-            document.getElementById('aceito_termos_1').disabled = false;
-        }
-
-        function habilitarBotao() {
-            var checkbox1 = document.getElementById('aceito_termos_1');
-            var checkbox2 = document.getElementById('aceito_termos_2');
-
-            checkbox1.checked = checkbox2.checked;
-            document.getElementById('cadastrar').disabled = !checkbox1.checked;
-        }
-
-        function fecharTermos() {
-            document.getElementById('termos-container').style.display = 'none';
-            document.getElementById('dados').style.display = 'flex';
-            
-        }
-
-        function sincronizarCheckboxes() {
-            var checkbox1 = document.getElementById('aceito_termos_1');
-            var checkbox2 = document.getElementById('aceito_termos_2');
-            
-            // Verifica qual checkbox está sendo clicado
-            if (event.target === checkbox1) {
-                console.log('Checkbox 1 clicado');
-                // Sincroniza checkbox2 com checkbox1
-                checkbox2.checked = checkbox1.checked;
-                
-                // Habilita ou desabilita checkbox2 baseado no estado de checkbox1
-                checkbox2.disabled = !checkbox1.checked;
-            } else if (event.target === checkbox2) {
-                console.log('Checkbox 2 clicado');
-                // Sincroniza checkbox1 com checkbox2
-                checkbox1.checked = checkbox2.checked;
-                
-                // Habilita ou desabilita checkbox1 baseado no estado de checkbox2
-                checkbox1.disabled = !checkbox2.checked;
-            }
-            
-            habilitarBotao(); // Atualiza o estado do botão de cadastro
-        }
-
-    </script>
+    
 </head>
 <body>
     <a href="home.html"><i class="material-symbols-outlined voltar">
@@ -102,16 +57,16 @@
                         <h1>Cadastre-se</h1>
                         
                         <div class="caixatexto">
-                            <input type="text" name="nome" id="" placeholder="Nome de usuário">
+                            <input type="text" name="nome" id="nome" placeholder="Nome de usuário">
                         </div>
                         <div class="caixatexto">
-                            <input type="text" name="email" id="" placeholder="Email">
+                            <input type="text" name="email" id="email" placeholder="Email">
                         </div>
                         <div class="caixatexto">
-                            <input type="password" name="senha" id="" placeholder="Senha">
+                            <input type="password" name="senha" id="senha" placeholder="Senha">
                         </div>
                         <div class="caixatexto">
-                            <input type="password" name="confirmar" id="" placeholder="Confirmar Senha">
+                            <input type="password" name="confirmar" id="senha2" placeholder="Confirmar Senha">
                         </div>
     
                         <div id="termos">
@@ -119,6 +74,13 @@
                             <input type="checkbox" id="aceito_termos_1" onclick="sincronizarCheckboxes(); abrirTermos();"> Aceito os 
                                 <a href="#" onclick="abrirTermos(); return false">termos de serviço</a>
                             </label>
+                            <p id='textored' style="color:red;display:none" >Verifique sua senha</p>
+                            <?php
+                                if(isset($_GET['msg'])){
+                                    echo $_GET['msg'];
+                                }  
+                            ?>
+                            
                             <br>
                             <button type="submit" id="cadastrar" disabled>Cadastrar</button>   
                             <p>Já possui uma conta? <a href="login.html">Entre!</a></p>
@@ -169,4 +131,5 @@
         </div>
 
 </body>
+<script src='../../public/js/cadastro.js'></script>
 </html>
