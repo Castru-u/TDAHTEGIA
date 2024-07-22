@@ -47,12 +47,12 @@ l-33 11 0 144 c0 79 4 144 8 144 5 0 69 -16 143 -35 703 -180 1262 -213 1867
 </g>
 </svg>
 
-<form action="#">
+<form action="../actions/usuario/login_usuario.php" method="post">
 
 <div class="caixatexto"><i class="material-symbols-outlined">
     person
 </i>
-<input type="text" name="user" id="" placeholder="Usuário ou Email"></div>
+<input type="text" name="email" id="" placeholder="Email"></div>
 
 <div class="caixatexto"><i class="material-symbols-outlined">
     lock
@@ -67,7 +67,7 @@ l-33 11 0 144 c0 79 4 144 8 144 5 0 69 -16 143 -35 703 -180 1262 -213 1867
 </div>
     <div id="botao"><button type="submit">Entrar</button></div>
 </form>
-    <p>Não possui uma conta? <a href="cadastro.html">Cadastre-se!</a></p>
+    <p>Não possui uma conta? <a href="cadastro.php">Cadastre-se!</a></p>
     </div>
 
 </body>
