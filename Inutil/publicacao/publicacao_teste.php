@@ -16,7 +16,6 @@ if ($conn->connect_error) {
 // Consulta para obter todas as publicações
 $sql = "SELECT * FROM publicacoes ORDER BY data_publicacao DESC";
 $result = $conn->query($sql);
-
 ?>
 
 <!DOCTYPE html>
@@ -29,27 +28,30 @@ $result = $conn->query($sql);
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
-            margin-top: 5%;
-            margin-bottom: 10%;
+            margin: 0;
             padding: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
-            min-height: 100vh;
-
+            min-height: 100%;
         }
         .container {
             background: #fff;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 90%;
-            max-width: 800px;
             padding: 20px;
             margin-bottom: 20px;
+            max-width: 500px;
+            min-width: 500px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start; /* Alinha o conteúdo à esquerda */
+            text-align: left; /* Alinha o texto à esquerda */
         }
         .perfil-foto {
             display: flex;
             align-items: center;
+            justify-content: center;
             margin-bottom: 10px;
         }
         .perfil-foto img {
@@ -64,10 +66,15 @@ $result = $conn->query($sql);
             color: #333;
         }
         .descricao img {
-            width: 20%;
-            height: auto;
+            width: 100%; /* Aumente a largura conforme necessário */
+            height: auto; /* Mantém a proporção da imagem */
+            max-height: 500px;
             border-radius: 10px;
-            margin: 10px 0;
+            /* margin: 10px 0; */
+        }
+        .descricao{
+            width: 100%;
+
         }
         .descricao p {
             font-size: 14px;
@@ -76,6 +83,7 @@ $result = $conn->query($sql);
         }
         .comentarios {
             margin-top: 20px;
+            width: 100%;
         }
         .comentarios h2 {
             font-size: 20px;
@@ -86,7 +94,7 @@ $result = $conn->query($sql);
             background: #f9f9f9;
             border: 1px solid #ddd;
             border-radius: 5px;
-            padding: 10px;
+            /* padding: 10px; */
             margin-bottom: 10px;
         }
         .perfil_organizado {
@@ -106,7 +114,7 @@ $result = $conn->query($sql);
             color: #333;
         }
         .comentario p {
-            margin-left: 10px;
+            /* margin-left: 10px; */
             font-size: 14px;
             color: #666;
         }
@@ -116,6 +124,42 @@ $result = $conn->query($sql);
         }
         .comentarios a:hover {
             text-decoration: underline;
+        }
+        .form-comentario {
+            margin-top: 20px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .form-comentario textarea {
+            width: 90%;
+            max-width: 500px;
+            /* height: 100px; */
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            /* padding: 10px; */
+            margin-bottom: 10px;
+        }
+        .form-comentario input[type="text"] {
+            width: 90%;
+            max-width: 500px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            /* padding: 10px; */
+            margin-bottom: 10px;
+        }
+        .form-comentario input[type="submit"] {
+            background: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        .form-comentario input[type="submit"]:hover {
+            background: #0056b3;
         }
     </style>
 </head>
@@ -137,34 +181,25 @@ $result = $conn->query($sql);
             echo "</div>";
             echo "<div class='comentarios'>";
             echo "<h2>Comentários</h2>";
-            // Simulando comentários, você pode substituir pelo código para buscar comentários do banco de dados
-            echo "<div class='comentario'>";
-            echo "<div class='perfil_organizado'>";
-            echo "<img src='perfil.jpeg' alt='Foto do Usuário'>";
-            echo "<h3>THWAVERTON</h3>";
+            
+            // Link para a página de comentários
+            echo "<a href='comentarios.php?publicacao_id=" . $row["id"] . "'>Ver Comentários</a>";
+
+            // Adiciona o formulário de comentário
+            echo "<div class='form-comentario'>";
+            echo "<h2>Adicionar Comentário</h2>";
+            echo "<form action='adicionar_comentario.php' method='post'>";
+            echo "<input type='hidden' name='publicacao_id' value='" . $row["id"] . "'>";
+            echo "<input type='text' name='autor' placeholder='Seu nome' required>";
+            echo "<textarea name='comentario' placeholder='Escreva seu comentário aqui...' required></textarea>";
+            echo "<input type='submit' value='Enviar'>";
+            echo "</form>";
             echo "</div>";
-            echo "<p>Ótima foto! Adorei.</p>";
-            echo "</div>";
-            echo "<div class='comentario'>";
-            echo "<div class='perfil_organizado'>";
-            echo "<img src='perfil.jpeg' alt='Foto do Usuário'>";
-            echo "<h3>THWAVERTON</h3>";
-            echo "</div>";
-            echo "<p>Interessante! Parece um lugar legal.</p>";
-            echo "</div>";
-            echo "<div class='comentario'>";
-            echo "<div class='perfil_organizado'>";
-            echo "<img src='perfil.jpeg' alt='Foto do Usuário'>";
-            echo "<h3>THWAVERTON</h3>";
-            echo "</div>";
-            echo "<p>Obrigado por compartilhar.</p>";
-            echo "</div>";
-            echo "<a href='comentarios.php'>Ver + Comentários</a>";
             echo "</div>";
             echo "</div>";
         }
     } else {
-        echo "Nenhuma publicação encontrada.";
+        echo "<div class='container'>Nenhuma publicação encontrada.</div>";
     }
 
     // Fecha a conexão
