@@ -83,7 +83,7 @@
                             
                             <br>
                             <button type="submit" id="cadastrar" disabled>Cadastrar</button>   
-                            <p>Já possui uma conta? <a href="login.html">Entre!</a></p>
+                            <p>Já possui uma conta? <a href="login.php">Entre!</a></p>
                         </div>
                     </div>
     

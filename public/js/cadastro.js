@@ -27,7 +27,7 @@
                 preenchidos = true
 
                 for (let i of inputs){
-                    if (i.value.lenght=0 && i.type!='checkbox'){
+                    if (i.value.length==0 && i.type!='checkbox'){
                         preenchidos = false
                         
                     }

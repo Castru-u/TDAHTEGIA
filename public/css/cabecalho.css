@@ -1,0 +1,264 @@
+@charset "UTF-8";
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+@font-face {
+    font-family: 'Codec';
+    src: local('codec pro bold'), local('codec-pro-bold'),
+    url(/fonts/codec-pro-bold.ttf) format('truetype');
+    font-weight: 500;
+    font-style: normal;
+}
+
+#logo {
+    display: flex;
+    color: #FFF;
+    font-weight: bold;
+    font-family: system-ui,Alatsi,'Arial Narrow Bold', sans-serif;
+    font-size: 35px;
+    align-items: center;
+    cursor: pointer;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+svg {
+	width: 5rem;
+    margin-right: 7px;
+    height: auto;
+}
+
+body {
+	display: flex;
+	flex-wrap: wrap;
+	flex: 1 1 100vw;
+}
+
+nav {
+	color: white;
+	font-weight: 800;
+	background: #FF914D;
+	display: flex;
+	transition: background-color 0.2s;
+}
+
+nav a {
+	color: white;
+	text-decoration: none;
+	padding: 10px;
+	transition: all 0.2s;
+}
+
+nav a:hover {
+	border: 2px solid #ff620084;
+	padding: 5px;
+	border-radius: 50px;
+	background-color: wheat;
+	color: black;
+}
+
+main, aside {
+	background: white;
+	display: flex;
+    flex-direction: column;
+}
+
+/* Seletores para formatação individual. */
+
+header {
+	background: #FF7621;
+	display: flex;
+	height: 90px;
+	flex: 1 1 100vw;
+	justify-content: space-between;
+	font-weight: 800;
+	padding-inline: 20px;
+}
+
+
+header #logo {
+	display: flex;
+	flex: 0 1 200px;
+	background: #FF7621;
+	justify-content: center;
+	align-items: center;
+}
+
+#openMenu, #closeMenu {
+	border: none;
+
+	/* Remove a cor de fundo. */
+	background: none;
+
+	/* Tamanho da fonte. */
+	font-size: 40px;
+
+	/* Espessura da forte. */
+	font-weight: bold;
+
+	/* Margem ao redor do elemento              */
+	/* (superior, direito, inferior e esquerdo) */
+	padding: 0px 5px 0px 5px;
+
+	/* Muda o cursor do mouse para ponteiro.*/
+	cursor: pointer;
+
+	/* Oculta o elemento. */
+	display: none;
+
+	color: white;
+}
+#closeMenu {
+	height: 110px;
+}
+
+nav {
+	/* Alinha os itens na vertical. */
+	justify-content: center;
+
+	/* Alinha os itens na horizontal. */
+	align-items: center;
+
+	/* Junção de flex-grow, flex-shrink e flex-basis.  */
+	/* flex-grow – Habilidade de um flex item crescer. */
+	/* flex-shrink - Capacidade de redução do item.    */
+	/* flex-basis – Tamanho inicial do item.           */
+	flex: 1 1 100%;
+
+	/* Altura do elemento. */
+	height: 80px;
+}
+
+nav a {
+	/* Margem de todos os lados. */
+	margin: 0 3%;
+
+	/* Tamanho da fonte. */
+	font-size: 18pt;
+}
+
+main {
+	flex: 5 1;
+	min-height: 80vh;
+}
+
+aside {
+	flex: 2 1;
+}
+
+footer {
+	background-image: linear-gradient(#FF914D, #FF7621);
+    height: 80px;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    position: relative;
+    bottom: 0px
+}
+
+#textobaixo {
+    font-family: Kaniti,'Arial Narrow Bold', sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+    color: #FFF; 
+    margin-left: 30px;
+    text-shadow: rgba(0, 0, 0, 0.4) 1px 1px 4px;
+ }
+
+a {
+	text-decoration: none;
+	color: inherit;
+	font-family: Kanit,'Arial Narrow Bold', sans-serif;
+	font-weight: 500;
+	line-height: 100%;
+}
+
+
+
+
+@media only screen and (max-width: 717px) {
+	#openMenu, #closeMenu {
+		/* Retorna a visibilidade padrão. */
+		display: block;
+	}
+    @media only screen and (max-width: 717px) {
+		.search-box,.search-txt,.search-btn,.fasfa-search {
+			/* Retorna a visibilidade padrão. */
+			display: none;
+		}}
+	@media (max-width:992px){
+			.usuario{
+			  display: none;
+		}
+		}
+
+	#openMenu {
+		/* Espaço a esquerda será preenchido automaticamente
+		   colocando os itens a direita. */
+		margin-left: auto;
+	}
+
+	.profile {
+
+		display: none;
+	}
+
+	#closeMenu {
+		/* Torna a posição do elemento fixa. */
+		position: fixed;
+
+		/* Dispõe o elemento a 15px da esquerda. */
+		right: 15px;
+
+		/* Dispõe o elemento a 15px do topo. */
+		top: 15px;
+	}
+
+	nav {
+		/* Torna a posição do elemento fixa. */
+		position: fixed;
+		
+		/*Mostrar cabecalho*/
+		top: 11.2%;
+
+		/* Ocupa 100% da largura da tela de exibição. */
+		width: 100vw;
+
+		/* Ocupa 100% da altura da tela de exibição. */
+		height: 100vh;
+
+		/* Cor em RGB, mais transparência. */
+		background:#FF914D;
+
+		/* Dispõe os itens em coluna. */
+		flex-direction: column;
+
+		/* Alinha os itens na horizontal. */
+		align-items: center;
+
+		/* Alinha os itens na vertical. */
+		justify-content: center;
+
+		/* Remove a margem externa de todos os lados do elemento. */
+		margin: 0;
+
+		/* Oculta o elemento. */
+		display: none;
+
+		/* Invisivel */
+		opacity: 0;
+
+		/* Velocidade de transição de um estado para outro. */
+		transition: 0.3s;
+	}
+
+	nav a {
+		margin: 3%;
+	}
+	aside {
+		height: 100px;
+	}
+}
