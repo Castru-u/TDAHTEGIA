@@ -113,11 +113,11 @@ position: absolute;
     border-radius: 5px;
 }
 .seila_td{
-    margin-top: 60px;
+    margin-top: 4px;
     margin-left: 5px;
 }
 .seila_td p{
-    margin-bottom: 30px;
+    margin-bottom: 10px;
 }
 </style>
 <html>
@@ -139,10 +139,15 @@ position: absolute;
     <div class="isso">
      <div class="paragrafo_teste">
         <div class="seila_td">
-        <P>T</P>
         <P>D</P>
+        <P>E</P>
+        <p>S</p>
         <p>A</p>
-        <p>H</p>
+        <p>T</p>
+        <p>E</p>
+        <P>N</P>
+        <P>T</P>
+        <P>O</P>
         </div>
 
         <div class="seila">
