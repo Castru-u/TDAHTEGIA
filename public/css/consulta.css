@@ -1,0 +1,41 @@
+.blococon{
+    min-height: 300px;
+    margin: 35px;
+    box-shadow: black 0 0 5px;
+    border-radius: 40px;
+    padding: 30px;
+}
+
+.blococon h2{
+    font-family: Codec,'Arial Narrow Bold', sans-serif;
+    font-size: 1.7rem;
+    color:#ee6e1f;
+}
+
+.items{
+    background-color: gray;
+    height: 20px
+}
+
+#botoes{
+    display: flex;
+    gap: 10px;
+    margin: 20px 0 0 30px;
+}
+
+#add, #botoes p{
+    font-size: 3rem;
+    color: white;
+    background-color: #ee6e1f;
+    text-align: center;
+    line-height: 3.5rem;
+    width: 3.5rem;
+    border-radius: 999px;
+}
+
+#botoes p{
+    font-size: 1.5rem;
+    font-family: Codec,'Arial Narrow Bold', sans-serif;
+    width: auto;
+    padding: 0 10px;
+}

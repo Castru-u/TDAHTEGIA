@@ -47,7 +47,14 @@ l-33 11 0 144 c0 79 4 144 8 144 5 0 69 -16 143 -35 703 -180 1262 -213 1867
 </g>
 </svg>
 
+<?php
+if(isset($_GET['msgLogin'])){
+    echo $_GET['msgLogin'];
+}  
+?>
+
 <form action="../actions/usuario/login_usuario.php" method="post">
+
 
 <div class="caixatexto"><i class="material-symbols-outlined">
     person
@@ -65,10 +72,11 @@ l-33 11 0 144 c0 79 4 144 8 144 5 0 69 -16 143 -35 703 -180 1262 -213 1867
     </label>
     <a href="esqueceu.html">Esqueceu sua senha?</a>
 </div>
-    <div id="botao"><button type="submit">Entrar</button></div>
+    <div id="botao"><button type="submit" id="entrar" disabled='true'>Entrar</button></div>
 </form>
     <p>Não possui uma conta? <a href="cadastro.php">Cadastre-se!</a></p>
     </div>
 
 </body>
+<script src="../../public/js/login.js"></script>
 </html>
