@@ -19,12 +19,15 @@ if($result->num_rows == 1){
     $usuario = $result->fetch_object();
 
     if(password_verify($senha, $usuario->senha)){
-
+        session_start();
+        session_unset();
+        session_destroy();
         session_start();
         $_SESSION['nome'] = $usuario->nome;
         $_SESSION['logado'] = true;
         $_SESSION['id_usuario'] = $usuario->idusuario;
-        header("location: ../../pages/home.php");
+        $_SESSION['role'] = $usuario->role;
+        header("location: ../../pages/consulta.php");
 
     }else{
         header("location: ../../pages/login.php?msgLogin=Usuário ou senha incorretos!");

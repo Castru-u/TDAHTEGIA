@@ -12,11 +12,6 @@
     color:#ee6e1f;
 }
 
-.items{
-    background-color: gray;
-    height: 20px
-}
-
 #botoes{
     display: flex;
     gap: 10px;
@@ -38,4 +33,32 @@
     font-family: Codec,'Arial Narrow Bold', sans-serif;
     width: auto;
     padding: 0 10px;
+}
+
+h3{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 20px;
+}
+
+.foto {
+     height: 45px;
+     width: 45px;
+     border:#ee6e1f solid ;
+     border-radius: 100px;
+}
+
+.item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-radius: 100px;
+    box-shadow: black 0 0 3px;
+    padding: 12px 12px;
+}
+
+.items {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 20px 0;
 }
