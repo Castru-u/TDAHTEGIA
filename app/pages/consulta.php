@@ -42,7 +42,10 @@ require_once("../actions/usuario/listar_consultas.php");
 
 <aside>
 
-	<div id="chatcon"></div>
+	<div id="chatcon">
+			
+
+	</div>
 
 </aside>
 

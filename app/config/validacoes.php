@@ -25,4 +25,28 @@ function verificaEmail($email){
     }  
 }
 
+function retornaUser($idusuario){
+
+    conecta();
+
+    global $mysqli;
+
+    $sql = "SELECT * FROM usuario WHERE idusuario = ?;";
+
+    $stmt = $mysqli->prepare($sql);
+    
+    $stmt->bind_param("i",$idusuario);
+    $stmt->execute();
+    $retorno = $stmt->get_result();
+
+    desconecta();
+
+    if($retorno->num_rows == 1){
+        $usuario = $retorno->fetch_object();
+        return $usuario;
+    }else{
+        return false;
+    }  
+}
+
 ?>

@@ -26,7 +26,9 @@ if($result->num_rows == 1){
         $_SESSION['nome'] = $usuario->nome;
         $_SESSION['logado'] = true;
         $_SESSION['id_usuario'] = $usuario->idusuario;
+        $_SESSION['email'] = $usuario->email;
         $_SESSION['role'] = $usuario->role;
+        $_SESSION['foto'] = $usuario->foto;
         header("location: ../../pages/consulta.php");
 
     }else{

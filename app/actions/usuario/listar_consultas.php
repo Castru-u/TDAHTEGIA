@@ -8,12 +8,13 @@ global $mysqli;
 
 $sql;
 
-if($_SESSION['role']=='comum'){
+
+if($_SESSION['role']=='especialista'){
+    $sql = "SELECT chat.idusuario, chat.idespecialista, chat.denuncia, usuario.nome FROM chat 
+    INNER JOIN usuario ON usuario.idusuario = chat.idusuario WHERE chat.idespecialista = ?"; }
+elseif($_SESSION['role']=='comum'){
     $sql = "SELECT chat.idusuario, chat.idespecialista, chat.denuncia, usuario.nome FROM chat 
     INNER JOIN usuario ON usuario.idusuario = chat.idespecialista WHERE chat.idusuario = ?";}
-elseif($_SESSION['role']=='especialista'){
-    $sql = "SELECT chat.idusuario, chat.idespecialista, chat.denuncia, usuario.nome FROM chat 
-    INNER JOIN usuario ON usuario.idusuario = chat.idusuario WHERE chat.idusuario = ?"; }
 
 $stmt = $mysqli->prepare($sql);
 

@@ -156,17 +156,14 @@ footer {
     width: 100%;
     align-items: center;
     position: relative;
-    bottom: 0px
-}
-
-#textobaixo {
-    font-family: Kaniti,'Arial Narrow Bold', sans-serif;
+    bottom: 0px;
+	font-family: Kaniti,'Arial Narrow Bold', sans-serif;
     font-weight: 600;
-    font-size: 20px;
+    font-size: 25px;
     color: #FFF; 
-    margin-left: 30px;
+	padding: 60px 30px;
     text-shadow: rgba(0, 0, 0, 0.4) 1px 1px 4px;
- }
+}
 
 a {
 	text-decoration: none;
