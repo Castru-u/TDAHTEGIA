@@ -46,3 +46,8 @@ closeMenu.addEventListener('click', () => {
 		openMenu.removeAttribute('style')
 	}, 200);
 })
+
+document.getElementById("fotousuario").addEventListener("click", function(){
+	document.getElementById("config").classList.toggle("none");
+
+})

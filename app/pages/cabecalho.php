@@ -3,6 +3,8 @@ session_start();
 if(!isset($_SESSION['logado'])){
 	header("location: home.php");
 }
+
+require_once("../config/validacoes.php");
 ?>
 
 <!DOCTYPE html>
@@ -54,12 +56,22 @@ l-33 11 0 144 c0 79 4 144 8 144 5 0 69 -16 143 -35 703 -180 1262 -213 1867
 <p>TDAHTÉGIA</p>
 	</div>
 	<div class="search"></div>
-	<?php
 
-		
-		echo "<img src=''> "
+	<div id="imgconfig">
+		<?php
 
-	?>
+			$user = retornaUser($_SESSION['id_usuario']);
+
+			echo "<img src='../../public/uploads/{$user->foto}' id='fotousuario'>";
+
+		?><div id="config" class='none'>
+			<a href="perfil.php">Perfil</a>
+			<hr>
+			<form action="../config/deslogar.php" method="post">
+			<button type="submit">Sair</button>
+			</form>
+		</div>
+	</div>
 	<button id="openMenu">&#9776;</button>
 </header>
 
@@ -69,5 +81,7 @@ l-33 11 0 144 c0 79 4 144 8 144 5 0 69 -16 143 -35 703 -180 1262 -213 1867
 	<a href="#">Comunidade</a>
 	<a href="#">Calendário</a>
 	<a href="#">Material de estudo</a>
-	<a href="#">Consulta</a>	
+	<a href="consulta.php">Consulta</a>	
 </nav>
+
+<script src="../../public/js/script.js"></script>
