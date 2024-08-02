@@ -28,7 +28,7 @@ require_once("cabecalho.php");
 
 				<div class="input-group">
 
-				<div id="area1">
+				<div id="area1" class='none'>
 					<div class="input-box">
 						<label for="firstname">Nome</label>
 						<input id="firstname" type="text" name="nome" placeholder="Digite um nome" value=<?php echo"'{$user->nome}'"; ?> required maxlength="50">
@@ -41,7 +41,7 @@ require_once("cabecalho.php");
 				</div>
 					<div class="input-box">
 						<label for="descricao">Sobre mim</label>
-						<textarea id="descricao" type="" name="descricao" placeholder="Fale um pouco sobre você!" maxlength="200" ><?php echo"{$user->descricao}"; ?></textarea>
+						<textarea class='none' id="descricao" type="" name="descricao" placeholder="Fale um pouco sobre você!" maxlength="200" ><?php echo"{$user->descricao}"; ?></textarea>
 						<p><?php echo"{$user->descricao}"; ?></p>
 					</div>
 
@@ -51,8 +51,8 @@ require_once("cabecalho.php");
 				
 				<div class="continue-button">
 					<button id='editar' type='button'>Editar</button>
-					<button id='cancelar' type='button'>Cancelar</button>
-					<button id='salvar' type='submit'>Salvar</button>
+					<button id='cancelar' type='button'class='none'>Cancelar</button>
+					<button id='salvar' class='none'type='submit'>Salvar</button>
 				</div>
 				
 

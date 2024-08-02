@@ -4,6 +4,14 @@ main{
     padding: 30px;
 }
 
+.none{
+    display: none;
+}
+
+.flex{
+    display: flex;
+}
+
 #titulo{
 	display: flex;
     flex-direction: row-reverse;
@@ -43,7 +51,6 @@ font-family: 'Oswald', sans-serif;
 }
 
 #area1{
-	display: flex;
 	justify-content: space-around;
 	margin-left: 5px;
 	margin-bottom: 30px;
@@ -113,16 +120,11 @@ textarea {
     gap: 10px;
 }
 
-#cancelar, #salvar, #area1, textarea{
-    display: none;
-}
-
 .input-box p {
     font-size: 12px;
 }
 
 .continue-button button {
-    margin-top: 2.5rem;
     border: none;
     background-color: #FF7621;
     color: white;

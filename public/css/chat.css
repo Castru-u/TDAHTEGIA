@@ -1,0 +1,85 @@
+main {
+    background-color: rgb(240, 240, 240);
+}
+
+.foto {
+    height: 70px;
+    width: 70px;
+    border:#ee6e1f solid 5px;
+    border-radius: 100px;
+}
+
+#caixa {
+    padding: 40px;
+    max-width: 800px;
+}
+
+#cabecalho {
+    background-color: #FF914D;
+    padding: 10px 25px;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    font-size: 3rem;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight: 500;
+    color: white;
+    border-radius: 30px 30px 0 0;
+    
+}
+
+#msgs {
+    background-color: rgb(209, 209, 209);
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    row-gap: 10px;
+    overflow-y: auto;
+}
+
+.msg {
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 10px;
+    width: fit-content;
+    max-width: 70%;
+}
+
+.user {
+    background-color: #ee6e1f;
+    border-radius: 10px 0 10px 10px;
+    align-self: flex-end;
+    color: white;
+}
+
+.outro {
+    background-color: rgb(240, 240, 240);
+    border-radius: 0 10px 10px 10px;
+
+}
+
+#caixatexto {
+    background-color: rgb(73, 73, 73);
+}
+
+#caixatexto form{
+    display: flex;
+    padding: 12px 24px;
+    justify-content: center;
+    gap: 20px;
+}
+
+#caixatexto form input{
+    flex: 1;
+    color: #040404;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 1px 1px 20px #0000001c;
+    row-gap: 0.5rem;
+    font-family: 'Oswald', sans-serif;
+    padding-left: 20px;
+}
+
+input::placeholder {
+    color: #000000be;
+}

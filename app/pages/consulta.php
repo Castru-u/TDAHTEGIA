@@ -3,6 +3,7 @@
 
 require_once("cabecalho.php");
 require_once("../actions/usuario/listar_consultas.php");
+require_once("../config/validacoes.php");
 
 ?>
 <link rel="stylesheet" href="../../public/css/consultas.css">
@@ -28,11 +29,21 @@ require_once("../actions/usuario/listar_consultas.php");
 				echo "<h3>Você não possui nenhuma consulta.<h3>";
 			}else{
 			foreach($listaConsultas as $consulta){
-			echo "<div class='item'>
-				<img src='../../public\img\Thw.jpeg' alt='foto' class='foto'>
-				<h3>{$consulta['nome']}</h3>
-			</div>";
-				};
+				$user = retornaUser($consulta['idusuario']);
+
+				echo "<form action='chat.php' method='post'>
+						<button class='item'>
+						<img src='../../public/uploads/{$user->foto}' alt='foto' class='foto'>
+						<h3>{$consulta['nome']}</h3>
+						<input name='idchat' value={$consulta['idchat']} style='display:none'>";
+				if($_SESSION['role']=='especialista'){
+					echo "<input name='idusuario' value={$consulta['idusuario']} style='display:none'>";
+				}else{
+					echo "<input name='idusuario' value={$consulta['idespecialista']} style='display:none'>";
+				}
+						
+				echo "	</button></form>";	
+					};
 			};
 			?>
 

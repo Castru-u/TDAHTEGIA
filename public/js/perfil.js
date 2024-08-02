@@ -3,19 +3,21 @@ let salvar = document.getElementById("salvar");
 let cancelar = document.getElementById("cancelar")
 
 editar.addEventListener('click', function(){
-    editar.style.display = 'none';
-    salvar.style.display = 'block';
-    cancelar.style.display = 'block';
-    document.getElementById("area1").style.display = 'block';
-    document.querySelector('textarea').style.display = 'block';
-    document.querySelector('.input-box p').style.display = 'none';
+    editar.classList.toggle('none');
+    salvar.classList.toggle('none');
+    cancelar.classList.toggle('none');
+    document.getElementById("area1").classList.toggle('none');
+    document.getElementById("area1").classList.toggle('flex');
+    document.querySelector('textarea').classList.toggle('none');
+    document.querySelector('.input-box p').classList.toggle('none');
 }) 
 
 cancelar.addEventListener('click', function(){
-    editar.style.display = 'block';
-    salvar.style.display = 'none';
-    cancelar.style.display = 'none';
-    document.getElementById("area1").style.display = 'none';
-    document.querySelector('textarea').style.display = 'none';
-    document.querySelector('.input-box p').style.display = 'block';
-})
+    editar.classList.toggle('none');
+    salvar.classList.toggle('none');
+    cancelar.classList.toggle('none');
+    document.getElementById("area1").classList.toggle('none');
+    document.getElementById("area1").classList.toggle('flex');
+    document.querySelector('textarea').classList.toggle('none');
+    document.querySelector('.input-box p').classList.toggle('none');
+});

@@ -54,6 +54,8 @@ h3{
     border-radius: 100px;
     box-shadow: black 0 0 3px;
     padding: 12px 12px;
+    height: 60px;
+    width: 100%;
 }
 
 .items {
