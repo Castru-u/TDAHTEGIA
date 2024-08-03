@@ -35,11 +35,11 @@ require_once("../config/validacoes.php");
 						<button class='item'>
 						<img src='../../public/uploads/{$user->foto}' alt='foto' class='foto'>
 						<h3>{$consulta['nome']}</h3>
-						<input name='idchat' value={$consulta['idchat']} style='display:none'>";
+						<input type='hidden' name='idchat' value={$consulta['idchat']}>";
 				if($_SESSION['role']=='especialista'){
-					echo "<input name='idusuario' value={$consulta['idusuario']} style='display:none'>";
+					echo "<input type='hidden' name='idusuario' value={$consulta['idusuario']}>";
 				}else{
-					echo "<input name='idusuario' value={$consulta['idespecialista']} style='display:none'>";
+					echo "<input type='hidden' name='idusuario' value={$consulta['idespecialista']}>";
 				}
 						
 				echo "	</button></form>";	

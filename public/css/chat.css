@@ -60,6 +60,7 @@ main {
 
 #caixatexto {
     background-color: rgb(73, 73, 73);
+    border-radius: 0 0 30px 30px;
 }
 
 #caixatexto form{
@@ -82,4 +83,16 @@ main {
 
 input::placeholder {
     color: #000000be;
+}
+
+.enviar {
+    background-color: #ee6e1f;
+    color: white;
+    border-radius: 1000px;
+    font-size: 1.7rem;
+    padding: 5px;
+}
+
+#caixatexto button {
+    background-color: #00000000;
 }

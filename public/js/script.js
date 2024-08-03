@@ -51,3 +51,4 @@ document.getElementById("fotousuario").addEventListener("click", function(){
 	document.getElementById("config").classList.toggle("none");
 
 })
+
