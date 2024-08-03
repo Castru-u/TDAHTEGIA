@@ -1,0 +1,122 @@
+.container_main{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px; 
+    justify-content: flex-start; 
+    padding: 30px; 
+}
+.blococom{
+    min-height: auto;
+    box-shadow: black 0 0 5px;
+    border-radius:5px;
+    /* padding: 30px; */
+    max-width: 200px;
+    max-height: 200px;
+}
+.blococom img{
+    width: 200px;
+    height: auto;
+    max-width: 200px;
+    max-height: 145px;
+}
+.blococom h2{
+    font-family: Codec,'Arial Narrow Bold', sans-serif;
+    font-size: 1.7rem;
+    color:#ee6e1f;
+    text-align: center;
+    justify-content: center;
+}
+/* Container para a barra de pesquisa e o seletor de categorias */
+.search-container {
+    display: flex;
+    width: 100%; 
+    max-width: 600px; 
+    margin: 0 auto;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap; 
+    gap: 10px; 
+}
+
+/* Estilo para a barra de pesquisa */
+.search-input {
+    width: 150px; 
+    padding: 8px;
+    font-size: 0.875rem; 
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box; 
+}
+
+/* Estilo para o seletor de categorias */
+.category-select {
+    width: 150px; 
+    padding: 8px;
+    font-size: 0.875rem; 
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box; 
+}
+/* Estilo para a imagem dentro do botão */
+.btn-img {
+    width: 45px; 
+    height: auto; 
+}
+
+/* Container geral para o formulário */
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    margin-top: 5%;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo para o título do formulário */
+.container h1 {
+    text-align: center;
+    color: #333;
+    font-family: 'Arial', sans-serif;
+    margin-bottom: 20px;
+}
+
+/* Estilo para o formulário */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Estilo para os rótulos dos campos */
+label {
+    font-weight: bold;
+    color: #555;
+}
+
+/* Estilo para os campos de entrada e área de texto */
+input[type="text"],
+textarea {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+/* Estilo para o botão de envio */
+button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #ee6e1f; /* Cor de fundo do botão */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Estilo para o botão ao passar o mouse */
+button:hover {
+    background-color: #d45d00;
+}

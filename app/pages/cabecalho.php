@@ -4,7 +4,7 @@ if(!isset($_SESSION['logado'])){
 	header("location: home.php");
 }
 
-require_once("../config/validacoes.php");
+require_once('/opt/lampp/htdocs/TDAHTEGIA/app/config/validacoes.php');
 ?>
 
 <!DOCTYPE html>

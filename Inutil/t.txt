@@ -1,1 +1,32 @@
 Por favor nao apague
+eu alterei:
+ALTER TABLE comunidades
+ADD COLUMN imagem LONGBLOB DEFAULT NULL;
+
+
+ALTER TABLE comunidades
+ADD COLUMN categoria VARCHAR(50) NOT NULL AFTER descricao;
+
+
+// materiais
+CREATE TABLE materiais (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    descricao TEXT,
+    categoria VARCHAR(50) NOT NULL,
+    tipo_arquivo VARCHAR(50) NOT NULL,
+    arquivo LONGBLOB NOT NULL,
+    criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+\\
+CREATE TABLE IF NOT EXISTS materiais (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    descricao TEXT,
+    categoria VARCHAR(50) NOT NULL,
+    tipo_arquivo VARCHAR(50) NOT NULL,
+    arquivo LONGBLOB NOT NULL,
+    criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
