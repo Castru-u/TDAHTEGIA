@@ -1,0 +1,7 @@
+creat database usuario;
+create table usuarios(
+    id primary key autoincrement,
+    nome varchar(255),
+    email varchar(255),
+    senha varchar(255)
+);
