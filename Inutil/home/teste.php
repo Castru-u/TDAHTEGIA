@@ -1,235 +1,84 @@
-<style>
-*{
-    margin: 0;
-    padding: 0;
-}
-.container {
-  display: inline-block;
-  width: 100%;
-  position: relative;
-}
-.container-1{
-    display: center;
-    text-align: center;
-    background-color: #FF7621;
-    font-size: 30px;
-    color: white;
-}
-.container-2 {
-  display: center;
-  text-align: center;
-  background: white;
-  height: 500px; /* Define a altura do contêiner */
-  color: blue;
-}
-.container-2 p{
-position: absolute;
-  text-align: left;
-  top: 270px;
-  left: 20px;
-  width: 60%;
-  margin: 0 auto;
-  font-size: 20px;
-  font-weight: bold;
-  color: black;
-}
-
-.container img {
-  opacity: 0.9; /* Define a transparência da imagem */
-  width: auto;
-}
-.container-2 h1 {
-  position: absolute;
-  text-align: left;
-  top: 160px;
-  left: 20px;
-  font-family: Paytone One !important;
-  width: 60%;
-  margin: 0 auto;
-  font-size: 50px;
-  font-weight: bold;
-}
-.container_teste {
-  display: inline-block;
-  /* text-align: center;  */
-  background: blanchedalmond;
-  height: 800px; /* Define a altura do contêiner */
-  color: blue;
-  padding: 20px; /* Adiciona um pouco de padding para afastar o texto das bordas */
-}
-
-.container_teste h1 {
-  font-family: Paytone One !important;
-  font-size: 50px;
-  font-weight: bold;
-  text-align: center;
-  margin: 0 0 20px 0; /* Adiciona margem inferior para separar do parágrafo */
-}
-
-.container_teste p {
-  font-size: 20px;
-  font-weight: bold;
-  gap: 2px;
-  color: black;
-  margin: 0; /* Remove margens adicionais */
-}
-
-
-.container p {
-  text-align: left;
-  top: 145px;
-  left: 20px;
-  width: 60%;
-  margin: 0 auto;
-  font-size: 50px;
-  font-weight: bold;
-  color: white;
-}
-.paragrafo_teste{
-    display: flex;
-    flex-direction: row;
-    background-color:#FF7621;
-    border: 3px solid black;
-    border-radius: 5px;
-    width:100%;
-    text-align: column;
-}
-.paragrafo_teste img{
-    margin-top: 70px;
-    width: 100px;
-    height: 100px;
-}
-.isso{
-    display: flex;
-    justify-content: center;
-    flex-direction: row;
-    gap: 30px ;
-    margin-top: 50px;
-}
-.seila{
-    margin: 20px;
-    border: 2px solid black;
-    background-color: blue;
-    border-radius: 5px;
-}
-.seila_td{
-    margin-top: 4px;
-    margin-left: 5px;
-}
-.seila_td p{
-    margin-bottom: 10px;
-}
-</style>
+<!DOCTYPE html>
 <html>
-    <div class="container-1">
-    <h1>SOBRE O TDAH</h1>
-    </div>
-    <div class="container-2">
-        <h1>O QUE É O TDAHTEGIA<br> </h1>
-        <P>TDAH, ou Transtorno do Défict de Atenção e Hiperatividade, é um trastorno neurobiologico comum
-        que geralmente se manifesta na infancia, mas pode persistir na idade adulta.Ele é caracterizado por tres principais sintomas são:
-        </p>
-    </div>
+<head>
+  <style>
+    /* Estilo geral para o container */
+    .parte_de_cima, .baixo {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      background-color: #FF914d;
+    }
 
-    <!-- <div class="container-1">
-    <h1>SOBRE O TDAH</h1>
-    </div> -->
-    <div class="container_teste">
-        <h1> SINTOMAS DO ESTUDANTE COM TDAH<br> </h1>
-    <div class="isso">
-     <div class="paragrafo_teste">
-        <div class="seila_td">
-        <P>D</P>
-        <P>E</P>
-        <p>S</p>
-        <p>A</p>
-        <p>T</p>
-        <p>E</p>
-        <P>N</P>
-        <P>T</P>
-        <P>O</P>
-        </div>
+    /* Estilo para as divisões internas */
+    .parte_de_cima .texo_lado_esquerdo, .parte_de_cima .image,
+    .baixo .imagem, .baixo .texo_lado_direito {
+      width: 50%;
+    }
 
-        <div class="seila">
-        <P>TDAH, ou Transtorno do Défict de Atenção e Hiperatividade, é um trastorno neurobiologico comum
-        que geralmente se manifesta na infancia, mas pode persistir na idade adulta.Ele é caracterizado por tres principais sintomas são:
-        Desatenção: Dificuldade em manter o foco em tarefas ou atividades, frequentemente resultando em erros por descuido,Dificuldade em seguir instruções detalhadas ou em completar tarefas.
-        </p>
-        </div>
-    </div>
-    <div class="paragrafo_teste">
-        <img src="../../public/img/Thw.jpeg" alt="">
-        <div class="seila">
-        <P>TDAH, ou Transtorno do Défict de Atenção e Hiperatividade, é um trastorno neurobiologico comum
-        que geralmente se manifesta na infancia, mas pode persistir na idade adulta.Ele é caracterizado por tres principais sintomas são:
-        Desatenção: Dificuldade em manter o foco em tarefas ou atividades, frequentemente resultando em erros por descuido,Dificuldade em seguir instruções detalhadas ou em completar tarefas.
-        </p>
-        </div>
+    .image img, .imagem img {
+      width: 100%; /* A imagem ocupa todo o espaço da divisão */
+      height: auto; /* Mantém a proporção da imagem */
+    }
 
-    </div>
-    </div>
-    <div class="isso">
-    <div class="paragrafo_teste">
-        <img src="../../public/img/Thw.jpeg" alt="">
-        <div class="seila">
-        <P>TDAH, ou Transtorno do Défict de Atenção e Hiperatividade, é um trastorno neurobiologico comum
-        que geralmente se manifesta na infancia, mas pode persistir na idade adulta.Ele é caracterizado por tres principais sintomas são:
-        Desatenção: Dificuldade em manter o foco em tarefas ou atividades, frequentemente resultando em erros por descuido,Dificuldade em seguir instruções detalhadas ou em completar tarefas.
-        </p>
-        </div>
+    .texo_lado_esquerdo, .texo_lado_direito {
+      padding: 10px; /* Espaçamento interno para o texto */
+    }
 
-    </div>
+    /* Adicionando alguma altura para visualização */
+    .image, .imagem {
+      height: 100%; /* Altura exemplo, pode ser ajustada conforme necessário */
+      overflow: hidden; /* Esconde parte da imagem se necessário */
+    }
 
-    <div class="paragrafo_teste">
-        <img src="../../public/img/Thw.jpeg" alt="">
-        <div class="seila">
-        <P>TDAH, ou Transtorno do Défict de Atenção e Hiperatividade, é um trastorno neurobiologico comum
-        que geralmente se manifesta na infancia, mas pode persistir na idade adulta.Ele é caracterizado por tres principais sintomas são:
-        Desatenção: Dificuldade em manter o foco em tarefas ou atividades, frequentemente resultando em erros por descuido,Dificuldade em seguir instruções detalhadas ou em completar tarefas.
-        </p>
-        </div>
-
+    .texo_lado_esquerdo, .texo_lado_direito {
+      height: auto; /* Altura exemplo, pode ser ajustada conforme necessário */
+      overflow: hidden; /* Esconde texto excedente */
+      margin-bottom: 10%;
+    }
+    .texo_lado_direito h1, .texo_lado_esquerdo h1{
+            font-size: 40px;
+            color: white;
+            font-weight: bold; /* Deixa o título em negrito */
+            font-family: Codec, 'Arial Narrow Bold', sans-serif;
+            /* line-height: 1.2 !important; */
+            text-shadow: rgba(0, 0, 0, 0.3) 0px 3px 4px;
+    }
+    .texo_lado_direito p, .texo_lado_esquerdo p{
+            font-size: 20px;
+            color: whitesmoke;
+            letter-spacing: 3px; /* Adiciona espaçamento entre as letras */
+            font-weight: bold; /* Deixa o título em negrito */
+            font-family: Codec, 'Arial Narrow Bold', sans-serif;
+            text-shadow: rgba(0, 0, 0, 0.3) 0px 3px 4px;
+    }
+  </style>
+</head>
+<body>
+  <div class="parte_de_cima">
+    <div class="texo_lado_esquerdo">
+      <h1>
+        SINTOMAS DO TDAH EM ADOLESCENTES
+      </h1>
+<p>    Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci excepturi expedita neque hic eos tempore aspernatur facere quod at nulla nemo dolor saepe, cum quos deleniti soluta minus eius dignissimos!</p>
     </div>
+    <div class="image">
+      <img src="../../public/img/tdah_menino.jpeg" alt="">
     </div>
-    
+  </div>
 
+  <div class="baixo">
+    <div class="imagem">
+      <img src="../../public/img/menino.jpeg" alt="">
     </div>
-<div class="container">
-    <img src="ADOLESCENTES.jpg" />
-    <h1>O QUE É O TDAHTEGIA<br> </h1>
-        <P>TDAH, ou Transtorno do Défict de Atenção e Hiperatividade, é um trastorno neurobiologico comum
-        que geralmente se manifesta na infancia, mas pode persistir na idade adulta.Ele é caracterizado por tres principais sintomas são:</P>
-
+    <div class="texo_lado_direito">
+    <h1>
+          DEPRESSÃO E TDAH
+      </h1>
+      <p>
+      O que é o TDAH? Antes de olharmos o relacionamento entre o TDAH e a Depressão, é muito importante compreender o que está envolvido individualmente em cada um destes distúrbios. O Transtorno do Déficit de Atenção com...      </p>
 </div>
+  </div>
+</body>
 </html>
-
-
-
-
-<div class="container">
-  <div class="divum"></div>
-  <div class="divdois"></div>
-</div>
-<style>
-.container { 
-  display: flex; 
-  flex-direction: row; 
-  justify-content: space-between; /* Para garantir que as divs fiquem nos extremos */
-}
-
-.divum { 
-  width: 48%; /* Ajuste a largura conforme necessário */
-  height: 200px;
-  background: black;
-  position: fixed;
-  left: 0; /* Fixar no lado esquerdo */
-}
-
-.divdois {
-  width: 48%; /* Ajuste a largura conforme necessário */
-  height: 200px;
-  background: red;
-  position: fixed;
-  right: 0; /* Fixar no lado direito */
-}
-</style>
