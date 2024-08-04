@@ -2,22 +2,31 @@
 define('BASE_PATH', __DIR__ . '/../../app/pages');
 require_once(BASE_PATH . '/cabecalho.php');
 
-// Definições de conexão com o banco de dados
-$servername = "localhost"; // Altere conforme necessário
-$username = "root";        // Altere conforme necessário
-$password = "";            // Altere conforme necessário
-$dbname = "tdahtegia";     // Altere conforme necessário
+$servername = "localhost"; 
+$username = "root";        
+$password = "";            
+$dbname = "tdahtegia";     
 
-// Criar conexão
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-// Verificar conexão
 if ($conn->connect_error) {
     die("Conexão falhou: " . $conn->connect_error);
 }
 
-// Mensagem de status
 $mensagem = "";
+
+
+session_start();
+if (!isset($_SESSION['id_usuario'])) {
+    header("Location: ../../app/pages/login.php");
+    exit();
+}
+
+$idusuario = $_SESSION['id_usuario'];
+
+// Caminho para a imagem padrão
+$imagemPadrao = '../../public/img/tdah_menino.jpeg'; // Altere conforme necessário
+$imagem = null;
 
 // Processar o formulário
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -27,7 +36,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $categoria = $conn->real_escape_string($_POST['categoria']);
     
     // Processar imagem
-    $imagem = null;
     if (isset($_FILES['imagem']) && $_FILES['imagem']['error'] == UPLOAD_ERR_OK) {
         // Verificar o tipo de arquivo
         $tipoImagem = $_FILES['imagem']['type'];
@@ -36,20 +44,37 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             $mensagem = "Tipo de imagem não suportado.";
         }
+    } else {
+        // Usar a imagem padrão se nenhuma imagem for enviada
+        $imagem = file_get_contents($imagemPadrao);
     }
 
-    // Inserir dados no banco de dados
+    // Inserir dados na tabela comunidades
     if ($imagem !== null) {
         $sql = "INSERT INTO comunidades (nome, descricao, categoria, imagem) VALUES (?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param('ssss', $nome, $descricao, $categoria, $imagem);
 
         if ($stmt->execute()) {
-            // Redirecionar para a página de mostrar comunidades
-            header('Location: http://localhost/TDAHTEGIA/Inutil/materias/mostrar_comunidades.php');
-            exit(); // Certifique-se de chamar exit após o redirecionamento
+            // Obter o ID da nova comunidade
+            $idcomunidade = $stmt->insert_id;
+
+            // Associar o usuário criador à nova comunidade como administrador
+            $sqlAssociacao = "INSERT INTO comunidade_usuario (idcomunidade, idusuario, role) VALUES (?, ?, 'admin')";
+            $stmtAssociacao = $conn->prepare($sqlAssociacao);
+            $stmtAssociacao->bind_param('ii', $idcomunidade, $idusuario);
+
+            if ($stmtAssociacao->execute()) {
+                // Redirecionar para a página de mostrar comunidades
+                header('Location: http://localhost/TDAHTEGIA/Inutil/materias/mostrar_comunidades.php');
+                exit(); // Certifique-se de chamar exit após o redirecionamento
+            } else {
+                $mensagem = "Erro ao associar usuário à comunidade: " . $stmtAssociacao->error;
+            }
+
+            $stmtAssociacao->close();
         } else {
-            $mensagem = "Erro: " . $stmt->error;
+            $mensagem = "Erro ao criar comunidade: " . $stmt->error;
         }
 
         $stmt->close();

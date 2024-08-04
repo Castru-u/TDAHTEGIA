@@ -1,5 +1,5 @@
 <?php
-define('BASE_PATH', __DIR__ . '/../../app/pages');
+// define('BASE_PATH', __DIR__ . '/../../app/pages');
 require_once(BASE_PATH . '/cabecalho.php');
 
 $servername = "localhost";
