@@ -57,6 +57,97 @@ CREATE TABLE `comunidade_usuario` (
   FOREIGN KEY (`idusuario`) REFERENCES `usuario` (`idusuario`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
++ uma
+CREATE TABLE `postagem` (
+  `idpostagem` int(11) NOT NULL AUTO_INCREMENT,
+  `conteudo` varchar(500) DEFAULT NULL,
+  `data_envio` date NOT NULL,
+  `hora_envio` time NOT NULL,
+  `idusuario` int(11) DEFAULT NULL,
+  `idcomunidade` int(11) DEFAULT NULL, -- Nova coluna para associar a comunidade
+  PRIMARY KEY (`idpostagem`),
+  FOREIGN KEY (`idcomunidade`) REFERENCES `comunidades`(`idcomunidade`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
++ uma
+CREATE TABLE comentarios_postagem (
+    idcomentario INT AUTO_INCREMENT PRIMARY KEY,
+    idusuario INT NOT NULL,
+    idpostagem INT NOT NULL,
+    idcomunidade INT NOT NULL,
+    comentario TEXT NOT NULL,
+    data_comentario TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (idusuario) REFERENCES usuario(idusuario),
+    FOREIGN KEY (idpostagem) REFERENCES postagem(idpostagem),
+    FOREIGN KEY (idcomunidade) REFERENCES comunidade(idcomunidade)
+);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -1,9 +1,9 @@
 <?php
 // Configurações do banco de dados
 $servername = "localhost";
-$username = "root"; // Altere conforme necessário
-$password = ""; // Altere conforme necessário
-$dbname = "publicacoes_db";
+$username = "root";
+$password = "";
+$dbname = "tdahtegia"; // Altere para o nome do seu banco de dados
 
 // Cria a conexão com o banco de dados
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -14,20 +14,26 @@ if ($conn->connect_error) {
 }
 
 // Obtém dados do formulário
-$publicacao_id = isset($_POST['publicacao_id']) ? intval($_POST['publicacao_id']) : 0;
-$autor = isset($_POST['autor']) ? $conn->real_escape_string($_POST['autor']) : '';
+$idpostagem = isset($_POST['idpostagem']) ? intval($_POST['idpostagem']) : 0;
+$idusuario = isset($_POST['idusuario']) ? intval($_POST['idusuario']) : 0;
+$idcomunidade = isset($_POST['idcomunidade']) ? intval($_POST['idcomunidade']) : 0;
 $comentario = isset($_POST['comentario']) ? $conn->real_escape_string($_POST['comentario']) : '';
 
 // Insere o comentário no banco de dados
-$sql = "INSERT INTO comentarios (publicacao_id, autor, comentario, data_comentario) VALUES ($publicacao_id, '$autor', '$comentario', NOW())";
+$sql = "INSERT INTO comentarios_postagem (idusuario, idpostagem, idcomunidade, comentario, data_comentario) 
+        VALUES (?, ?, ?, ?, NOW())";
 
-if ($conn->query($sql) === TRUE) {
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("iiis", $idusuario, $idpostagem, $idcomunidade, $comentario);
+
+if ($stmt->execute()) {
     // Redireciona de volta para a página de comentários
-    header("Location: comentarios.php?publicacao_id=" . $publicacao_id);
+    header("Location: comentarios.php?postagem_id=" . $idpostagem);
+    exit();
 } else {
-    echo "Erro ao adicionar comentário: " . $conn->error;
+    echo "Erro ao adicionar comentário: " . $stmt->error;
 }
 
-// Fecha a conexão
+$stmt->close();
 $conn->close();
 ?>
