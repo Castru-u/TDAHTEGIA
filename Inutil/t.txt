@@ -68,6 +68,10 @@ CREATE TABLE `postagem` (
   PRIMARY KEY (`idpostagem`),
   FOREIGN KEY (`idcomunidade`) REFERENCES `comunidades`(`idcomunidade`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+ALTER TABLE postagem ADD COLUMN titulo VARCHAR(255) DEFAULT NULL;
+ALTER TABLE postagem
+ADD COLUMN arquivo VARCHAR(255) DEFAULT NULL;
+
 + uma
 CREATE TABLE comentarios_postagem (
     idcomentario INT AUTO_INCREMENT PRIMARY KEY,

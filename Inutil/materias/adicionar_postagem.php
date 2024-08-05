@@ -1,4 +1,13 @@
 <?php
+session_start();
+require_once("../../app/config/validacoes.php");
+
+// Verificar se o usuário está logado
+if (!isset($_SESSION['id_usuario'])) {
+    header("Location: ../../app/pages/login.php");
+    exit();
+}
+
 // Configurações do banco de dados
 $servername = "localhost";
 $username = "root";
@@ -13,36 +22,42 @@ if ($conn->connect_error) {
     die("Conexão falhou: " . $conn->connect_error);
 }
 
+// Função para limpar dados
+function limparEntrada($data) {
+    return htmlspecialchars(stripslashes(trim($data)));
+}
+
 // Verifica se o formulário foi enviado
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $titulo = $_POST['titulo'];
-    $conteudo = $_POST['conteudo'];
-    $idusuario = $_POST['idusuario'];
-    
+    $titulo = limparEntrada($_POST['titulo']);
+    $conteudo = limparEntrada($_POST['conteudo']);
+    $idusuario = intval($_SESSION['id_usuario']); // Obtém o ID do usuário logado da sessão
+    $idcomunidade = intval($_POST['idcomunidade']);
+
     // Processa o upload do arquivo
     $arquivoNome = $_FILES['arquivo']['name'];
     $arquivoTmpNome = $_FILES['arquivo']['tmp_name'];
     $arquivoErro = $_FILES['arquivo']['error'];
-    $arquivoTamanho = $_FILES['arquivo']['size'];
     
-    if ($arquivoErro === 0) {
-        // Define o diretório para o upload
-        $diretorioUploads = 'uploads/';
-        // Gera um nome único para o arquivo
-        $arquivoNovoNome = uniqid('', true) . '-' . $arquivoNome;
-        $caminhoArquivo = $diretorioUploads . $arquivoNovoNome;
+    // Define o diretório para o upload
+    $diretorioUploads = '/opt/lampp/htdocs/TDAHTEGIA/public/uploads/';
+    
+    // Gera um nome único para o arquivo
+    $arquivoNovoNome = uniqid('', true) . '-' . basename($arquivoNome);
+    $caminhoArquivo = $diretorioUploads . $arquivoNovoNome;
 
+    if ($arquivoErro === 0) {
         // Move o arquivo para o diretório de uploads
         if (move_uploaded_file($arquivoTmpNome, $caminhoArquivo)) {
             // Insere a postagem no banco de dados
-            $sql = "INSERT INTO postagem (titulo, conteudo, arquivo, idusuario, data_envio, hora_envio) VALUES (?, ?, ?, ?, NOW(), NOW())";
+            $sql = "INSERT INTO postagem (titulo, conteudo, arquivo, idusuario, idcomunidade, data_envio, hora_envio) VALUES (?, ?, ?, ?, ?, CURDATE(), CURTIME())";
             $stmt = $conn->prepare($sql);
-            $stmt->bind_param("ssis", $titulo, $conteudo, $arquivoNovoNome, $idusuario);
+            $stmt->bind_param("sssii", $titulo, $conteudo, $arquivoNovoNome, $idusuario, $idcomunidade);
 
             if ($stmt->execute()) {
                 echo "<p>Postagem adicionada com sucesso!</p>";
             } else {
-                echo "<p>Erro: " . $stmt->error . "</p>";
+                echo "<p>Erro ao adicionar postagem: " . $stmt->error . "</p>";
             }
 
             $stmt->close();
@@ -50,13 +65,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "<p>Erro ao mover o arquivo para o diretório de uploads.</p>";
         }
     } else {
-        echo "<p>Erro no upload do arquivo.</p>";
+        echo "<p>Erro no upload do arquivo: " . $_FILES['arquivo']['error'] . "</p>";
     }
 }
 
 $conn->close();
 ?>
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -93,7 +107,8 @@ $conn->close();
         }
         .form-container textarea,
         .form-container input[type="text"],
-        .form-container input[type="file"] {
+        .form-container input[type="file"],
+        .form-container input[type="hidden"] {
             width: 100%;
             max-width: 100%;
             border-radius: 5px;
@@ -123,8 +138,8 @@ $conn->close();
         <form action="adicionar_postagem.php" method="post" enctype="multipart/form-data">
             <input type="text" name="titulo" placeholder="Título da Postagem" required>
             <textarea name="conteudo" placeholder="Digite o conteúdo da postagem..." required></textarea>
-            <input type="file" name="arquivo" accept="image/*,video/*,.pdf" required>
-            <input type="hidden" name="idusuario" value="1"> <!-- Altere conforme necessário ou remova se não for necessário -->
+            <input type="file" name="arquivo" accept="image/*,video/*,.pdf">
+            <input type="hidden" name="idcomunidade" value="1"> <!-- Altere conforme necessário ou remova se não for necessário -->
             <input type="submit" value="Adicionar Postagem">
         </form>
     </div>
