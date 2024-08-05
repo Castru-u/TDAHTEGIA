@@ -127,7 +127,7 @@ $conn->close();
             <?php if ($result_minhas->num_rows > 0): ?>
                 <?php while($row_minhas = $result_minhas->fetch_assoc()): ?>
                     <div class="blococom">
-                        <div class="comunidade">
+                        <div class="comunidade" id="redirectDiv">
                             <?php if ($row_minhas['imagem']): ?>
                                 <img src="data:image/jpeg;base64,<?php echo base64_encode($row_minhas['imagem']); ?>" alt="">
                             <?php else: ?>
@@ -170,7 +170,7 @@ $conn->close();
                     ?>
                     <?php if (!$already_displayed): ?>
                         <div class="blococom">
-                            <div class="comunidade">
+                            <div class="comunidade" id="redirectDiv">
                                 <?php if ($row_outros['imagem']): ?>
                                     <img src="data:image/jpeg;base64,<?php echo base64_encode($row_outros['imagem']); ?>" alt="">
                                 <?php else: ?>
@@ -268,6 +268,11 @@ $conn->close();
     });
 
     document.getElementById('category').addEventListener('change', handleInputChange);
+
+     // JavaScript para redirecionamento
+     document.getElementById('redirectDiv').addEventListener('click', function() {
+            window.location.href = 'http://localhost/TDAHTEGIA/Inutil/materias/comunidade.php'; // URL para onde será redirecionado
+        });
 </script>
 
 </body>
