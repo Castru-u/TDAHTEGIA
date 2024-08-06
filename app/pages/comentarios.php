@@ -82,41 +82,26 @@
         <div class="comentarios">
             <h2>Comentários</h2>
             <?php
-            // Configurações do banco de dados
-            $servername = "localhost";
-            $username = "root"; // Altere conforme necessário
-            $password = ""; // Altere conforme necessário
-            $dbname = "tdahtegia"; // Corrigido para o nome correto do banco de dados
+            require_once("../config/conecta.php"); // Inclui o arquivo de conexão
 
-            // Cria a conexão com o banco de dados
-            $conn = new mysqli($servername, $username, $password, $dbname);
+            // Estabelece a conexão com o banco de dados
+            conecta(); // Usa a função do arquivo conecta.php para conectar ao banco de dados
 
-            // Verifica a conexão
-            if ($conn->connect_error) {
-                die("Conexão falhou: " . $conn->connect_error);
-            }
-
-            // Obtém o ID da publicação
             $publicacao_id = isset($_GET['publicacao_id']) ? intval($_GET['publicacao_id']) : 0;
-
-            // Busca os comentários da publicação
             if ($publicacao_id > 0) {
                 $sql = "SELECT c.idusuario, u.nome AS autor, u.foto AS foto_usuario, c.comentario 
                         FROM comentarios_postagem c
                         JOIN usuario u ON c.idusuario = u.idusuario
                         WHERE c.idpostagem = ?
                         ORDER BY c.data_comentario DESC";
-                $stmt = $conn->prepare($sql);
+                $stmt = $mysqli->prepare($sql); // Usa $mysqli do conecta.php
                 $stmt->bind_param("i", $publicacao_id);
                 $stmt->execute();
                 $result = $stmt->get_result();
-
                 if ($result->num_rows > 0) {
-                    // Exibe os comentários
                     while($row = $result->fetch_assoc()) {
                         echo '<div class="comentario">';
                         echo '<div class="perfil_organizado">';
-                        // Caminho para a foto do usuário
                         $foto_path = '/TDAHTEGIA/public/uploads/' . htmlspecialchars($row["foto_usuario"]);
                         echo '<img src="' . $foto_path . '" alt="Foto do Usuário">';
                         echo '<h3>' . htmlspecialchars($row['autor']) . '</h3>';
@@ -131,9 +116,8 @@
             } else {
                 echo '<p>ID de publicação inválido.</p>';
             }
-
-            // Fecha a conexão
-            $conn->close();
+            
+            desconecta(); // Fecha a conexão usando a função definida em conecta.php
             ?>
         </div>
     </div>

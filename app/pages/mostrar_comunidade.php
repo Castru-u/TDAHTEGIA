@@ -75,7 +75,7 @@ if ($types_outros) {
 $stmt_outros->execute();
 $result_outros = $stmt_outros->get_result();
 
-desconecta(); // Fecha a conexão usando a função definida em conecta.php
+desconecta();
 ?>
 
 
@@ -266,7 +266,7 @@ desconecta(); // Fecha a conexão usando a função definida em conecta.php
 
      // JavaScript para redirecionamento
      document.getElementById('redirectDiv').addEventListener('click', function() {
-            window.location.href = 'http://localhost/TDAHTEGIA/app/pages/mostrar_comunidade.php'; // URL para onde será redirecionado
+            window.location.href = 'http://localhost/TDAHTEGIA/app/pages/comunidade.php'; // URL para onde será redirecionado
         });
 </script>
 
