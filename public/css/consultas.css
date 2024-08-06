@@ -1,3 +1,21 @@
+.bloco {
+    padding: 20px 30px;
+    border-radius: 12px;
+    width: 400px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: white;
+    font-weight: 600;
+    flex-direction: column;
+    row-gap: 27px;
+}
+
+.bloco button{
+    border-radius: 9px;
+    width: fit-content;
+    display: inline-flex;
+    margin-top: 10px;
+}
+
 .blococon{
     min-height: 300px;
     margin: 35px;
@@ -26,6 +44,7 @@
     line-height: 3.5rem;
     width: 3.5rem;
     border-radius: 999px;
+    cursor: pointer;
 }
 
 #botoes p{
@@ -33,6 +52,12 @@
     font-family: Codec,'Arial Narrow Bold', sans-serif;
     width: auto;
     padding: 0 10px;
+}
+
+.bloco {
+    margin: 20px 30px;
+    position: absolute;
+    background-color: #ee6e1f;
 }
 
 h3{
