@@ -46,7 +46,6 @@
 
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
-            echo "<div class='container1'>";
             echo "<div class='container'>";
             echo "<div class='perfil-foto'>";
             $foto_path = '/TDAHTEGIA/public/uploads/' . htmlspecialchars($row["foto"]);
@@ -143,7 +142,6 @@
         }
     } else {
         echo "<div class='container1'>Nenhuma publicação encontrada.</div>";
-        echo "</div>";
     }
 
     $conn->close();

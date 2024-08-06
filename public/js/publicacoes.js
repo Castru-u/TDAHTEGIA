@@ -1,18 +1,22 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Selecione todos os formulários de comentário
-    document.querySelectorAll('.form-comentario').forEach(function(formContainer) {
-        const form = formContainer.querySelector('form');
-        const textarea = formContainer.querySelector('textarea');
-        const submitButton = formContainer.querySelector('.btn-enviar');
+    // Seleciona todos os formulários e textareas
+    const forms = document.querySelectorAll('.form-comentario form');
+    
+    forms.forEach(form => {
+        const textarea = form.querySelector('textarea');
 
+        // Adiciona um evento keydown ao textarea
         textarea.addEventListener('keydown', function(event) {
+            // Verifica se a tecla pressionada é Enter e a tecla Shift não está pressionada
             if (event.key === 'Enter' && !event.shiftKey) {
                 event.preventDefault(); // Impede o comportamento padrão (nova linha)
+                // Envia o formulário
                 form.submit();
             }
         });
 
-        submitButton.addEventListener('click', function() {
+        // Adiciona um evento click ao botão de envio
+        form.querySelector('.btn-enviar').addEventListener('click', function() {
             form.submit();
         });
     });

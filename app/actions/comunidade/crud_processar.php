@@ -1,16 +1,14 @@
 <?php
 session_start();
 require_once("../../config/validacoes.php");
-require_once("../../config/conecta.php"); // Inclui o arquivo de conexão
+require_once("../../config/conecta.php"); 
 
-// Verifica se o usuário está logado
 if (!isset($_SESSION['id_usuario'])) {
     header("Location: ../../pages/login.php");
     exit();
 }
 
-// Estabelece a conexão com o banco de dados
-conecta(); // Usa a função do arquivo conecta.php para conectar ao banco de dados
+conecta(); 
 
 $action = $_POST['action'] ?? '';
 $idcomunidade = intval($_POST['idcomunidade'] ?? 0);
@@ -32,7 +30,7 @@ switch ($action) {
         $stmt = $mysqli->prepare("INSERT INTO comunidades (nome, descricao, categoria, imagem) VALUES (?, ?, ?, ?)");
         $stmt->bind_param('ssss', $nome, $descricao, $categoria, $imagem);
         if ($stmt->execute()) {
-            header("Location: ../../pages/crud.php?success=1");
+            header("Location: ../../pages/mostrar_comunidade.php?success=1");
         } else {
             header("Location: ../../pages/crud.php?error=1");
         }
@@ -82,6 +80,6 @@ switch ($action) {
         header("Location: ../../pages/crud.php?error=1");
 }
 
-// Fecha a conexão com o banco de dados
+
 desconecta();
 ?>

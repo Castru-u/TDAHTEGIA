@@ -78,7 +78,7 @@ l-33 11 0 144 c0 79 4 144 8 144 5 0 69 -16 143 -35 703 -180 1262 -213 1867
 <nav id="menu">
 
 	<button id="closeMenu">X</button>
-	<a href="mostrar_comunidade.php">Comunidade</a>
+	<a href="mostrar_comunidades.php">Comunidade</a>
 	<a href="calendario.php">Calendário</a>
 	<a href="#">Material de estudo</a>
 	<a href="consulta.php">Consulta</a>	
