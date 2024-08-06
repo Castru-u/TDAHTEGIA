@@ -95,26 +95,12 @@ header #logo {
 
 #openMenu, #closeMenu {
 	border: none;
-
-	/* Remove a cor de fundo. */
 	background: none;
-
-	/* Tamanho da fonte. */
 	font-size: 40px;
-
-	/* Espessura da forte. */
 	font-weight: bold;
-
-	/* Margem ao redor do elemento              */
-	/* (superior, direito, inferior e esquerdo) */
 	padding: 0px 5px 0px 5px;
-
-	/* Muda o cursor do mouse para ponteiro.*/
 	cursor: pointer;
-
-	/* Oculta o elemento. */
 	display: none;
-
 	color: white;
 }
 #closeMenu {
@@ -122,39 +108,23 @@ header #logo {
 }
 
 nav {
-	/* Alinha os itens na vertical. */
 	justify-content: center;
-
-	/* Alinha os itens na horizontal. */
 	align-items: center;
-
-	/* Junção de flex-grow, flex-shrink e flex-basis.  */
-	/* flex-grow – Habilidade de um flex item crescer. */
-	/* flex-shrink - Capacidade de redução do item.    */
-	/* flex-basis – Tamanho inicial do item.           */
 	flex: 1 1 100%;
-
-	/* Altura do elemento. */
 	height: 80px;
 }
 
 nav a {
-	/* Margem de todos os lados. */
 	margin: 0 3%;
-
-	/* Tamanho da fonte. */
 	font-size: 18pt;
 }
-
 main {
 	flex: 5 1;
 	min-height: 80vh;
 }
-
 aside {
 	flex: 2 1;
 }
-
 footer {
 	background-image: linear-gradient(#FF914D, #FF7621);
     height: 80px;
@@ -170,7 +140,6 @@ footer {
 	padding: 60px 30px;
     text-shadow: rgba(0, 0, 0, 0.4) 1px 1px 4px;
 }
-
 a {
 	text-decoration: none;
 	color: inherit;
@@ -178,7 +147,6 @@ a {
 	font-weight: 500;
 	line-height: 100%;
 }
-
 #fotousuario {
 	width: 70px;
 	height: 70px;
@@ -211,12 +179,10 @@ a {
 	justify-content: center;
 
 }
-
 #config hr{
 	color: black;
 	border: solid 1px;
 }
-
 #config a, button{
 	cursor: pointer;
 	height: 28px;
@@ -229,16 +195,12 @@ a {
 	align-items: center;
 	padding: 5px;
 }
-
-
 @media only screen and (max-width: 717px) {
 	#openMenu, #closeMenu {
-		/* Retorna a visibilidade padrão. */
 		display: block;
 	}
     @media only screen and (max-width: 717px) {
 		.search-box,.search-txt,.search-btn,.fasfa-search {
-			/* Retorna a visibilidade padrão. */
 			display: none;
 		}}
 	@media (max-width:992px){
@@ -248,8 +210,6 @@ a {
 		}
 
 	#openMenu {
-		/* Espaço a esquerda será preenchido automaticamente
-		   colocando os itens a direita. */
 		margin-left: auto;
 	}
 
@@ -259,51 +219,23 @@ a {
 	}
 
 	#closeMenu {
-		/* Torna a posição do elemento fixa. */
 		position: fixed;
-
-		/* Dispõe o elemento a 15px da esquerda. */
 		right: 15px;
-
-		/* Dispõe o elemento a 15px do topo. */
 		top: 15px;
 	}
 
 	nav {
-		/* Torna a posição do elemento fixa. */
 		position: fixed;
-		
-		/*Mostrar cabecalho*/
 		top: 11.2%;
-
-		/* Ocupa 100% da largura da tela de exibição. */
 		width: 100vw;
-
-		/* Ocupa 100% da altura da tela de exibição. */
 		height: 100vh;
-
-		/* Cor em RGB, mais transparência. */
 		background:#FF914D;
-
-		/* Dispõe os itens em coluna. */
 		flex-direction: column;
-
-		/* Alinha os itens na horizontal. */
 		align-items: center;
-
-		/* Alinha os itens na vertical. */
 		justify-content: center;
-
-		/* Remove a margem externa de todos os lados do elemento. */
 		margin: 0;
-
-		/* Oculta o elemento. */
 		display: none;
-
-		/* Invisivel */
 		opacity: 0;
-
-		/* Velocidade de transição de um estado para outro. */
 		transition: 0.3s;
 	}
 

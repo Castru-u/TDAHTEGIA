@@ -1,1 +1,227 @@
 Por favor nao apague
+eu alterei:
+ALTER TABLE comunidades
+ADD COLUMN imagem LONGBLOB DEFAULT NULL;
+
+
+ALTER TABLE comunidades
+ADD COLUMN categoria VARCHAR(50) NOT NULL AFTER descricao;
+
+
+// materiais
+CREATE TABLE materiais (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    descricao TEXT,
+    categoria VARCHAR(50) NOT NULL,
+    tipo_arquivo VARCHAR(50) NOT NULL,
+    arquivo LONGBLOB NOT NULL,
+    criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+\\
+CREATE TABLE IF NOT EXISTS materiais (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    descricao TEXT,
+    categoria VARCHAR(50) NOT NULL,
+    tipo_arquivo VARCHAR(50) NOT NULL,
+    arquivo LONGBLOB NOT NULL,
+    criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+
+
+
+
+ALTERAÇÕES
+-- Estrutura para tabela `comunidades` ajustada
+CREATE TABLE `comunidades` (
+  `idcomunidade` int(11) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(50) NOT NULL,
+  `descricao` varchar(100) DEFAULT NULL,
+  `categoria` varchar(50) DEFAULT NULL,  -- Nova coluna `categoria` adicionada
+  PRIMARY KEY (`idcomunidade`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- Estrutura para tabela `comunidade_usuario` ajustada
+CREATE TABLE `comunidade_usuario` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `idcomunidade` int(11) DEFAULT NULL,
+  `idusuario` int(11) DEFAULT NULL,
+  `role` enum('comum','admin','membro') NOT NULL DEFAULT 'comum',  -- Adicionada a opção 'membro'
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`idcomunidade`) REFERENCES `comunidades` (`idcomunidade`),
+  FOREIGN KEY (`idusuario`) REFERENCES `usuario` (`idusuario`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
++ uma
+CREATE TABLE `postagem` (
+  `idpostagem` int(11) NOT NULL AUTO_INCREMENT,
+  `conteudo` varchar(500) DEFAULT NULL,
+  `data_envio` date NOT NULL,
+  `hora_envio` time NOT NULL,
+  `idusuario` int(11) DEFAULT NULL,
+  `idcomunidade` int(11) DEFAULT NULL, -- Nova coluna para associar a comunidade
+  PRIMARY KEY (`idpostagem`),
+  FOREIGN KEY (`idcomunidade`) REFERENCES `comunidades`(`idcomunidade`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+ALTER TABLE postagem ADD COLUMN titulo VARCHAR(255) DEFAULT NULL;
+ALTER TABLE postagem
+ADD COLUMN arquivo VARCHAR(255) DEFAULT NULL;
+
++ uma
+CREATE TABLE comentarios_postagem (
+    idcomentario INT AUTO_INCREMENT PRIMARY KEY,
+    idusuario INT NOT NULL,
+    idpostagem INT NOT NULL,
+    idcomunidade INT NOT NULL,
+    comentario TEXT NOT NULL,
+    data_comentario TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (idusuario) REFERENCES usuario(idusuario),
+    FOREIGN KEY (idpostagem) REFERENCES postagem(idpostagem),
+    FOREIGN KEY (idcomunidade) REFERENCES comunidade(idcomunidade)
+);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+COMUNIDADES
+// ULTIMA MUDANÇA
+CREATE DATABASE comunidade_db;
+USE comunidade_db;
+
+-- Tabela de Usuários
+CREATE TABLE usuario (
+  idusuario INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  nome VARCHAR(50) NOT NULL,
+  email VARCHAR(100) NOT NULL UNIQUE,
+  senha VARCHAR(100) NOT NULL,
+  descricao VARCHAR(200) DEFAULT '',
+  role ENUM('comum','especialista','admin') NOT NULL DEFAULT 'comum',
+  data_criacao DATE DEFAULT CURDATE(),
+  foto VARCHAR(255) DEFAULT 'default_user.jpg'
+);
+
+-- Tabela de Comunidades
+CREATE TABLE comunidades (
+  idcomunidade INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  nome VARCHAR(50) NOT NULL,
+  descricao VARCHAR(100) DEFAULT NULL,
+  imagem LONGBLOB DEFAULT NULL,
+  categoria VARCHAR(50) NOT NULL
+);
+
+-- Tabela de Associação Comunidade-Usuário
+CREATE TABLE comunidade_usuario (
+  id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  idcomunidade INT(11) NOT NULL,
+  idusuario INT(11) NOT NULL,
+  role ENUM('membro', 'admin') NOT NULL DEFAULT 'membro',
+  FOREIGN KEY (idcomunidade) REFERENCES comunidades(idcomunidade),
+  FOREIGN KEY (idusuario) REFERENCES usuario(idusuario)
+);
+
+
+
+ADCIONAR 
+-- Inserir Usuários
+INSERT INTO usuario (nome, email, senha, descricao, role) VALUES
+('João Silva', 'joao.silva@example.com', 'senha123', 'Administrador da plataforma', 'admin'),
+('Maria Oliveira', 'maria.oliveira@example.com', 'senha456', 'Usuária comum', 'comum');
+
+-- Inserir Comunidades
+INSERT INTO comunidades (nome, descricao, categoria) VALUES
+('Comunidade de Tecnologia', 'Discussões sobre tecnologia e inovação', 'Tecnologia'),
+('Comunidade de Saúde', 'Assuntos relacionados à saúde e bem-estar', 'Saúde');
+
+-- Associar Usuários a Comunidades
+INSERT INTO comunidade_usuario (idcomunidade, idusuario, role) VALUES
+(1, 1, 'admin'),  -- João Silva é admin da Comunidade de Tecnologia
+(1, 2, 'membro'), -- Maria Oliveira é membro da Comunidade de Tecnologia
+(2, 2, 'admin');  -- Maria Oliveira é admin da Comunidade de Saúde
+
+
+COMUNIDADE QUE O USUARIO PARTICPAR
+SELECT c.idcomunidade, c.nome, c.descricao, c.categoria, cu.role
+FROM comunidades c
+JOIN comunidade_usuario cu ON c.idcomunidade = cu.idcomunidade
+WHERE cu.idusuario = 2;
+
+
+COMUNIDADES QUE EXISTE E O USUARIO NAO PARTICPAR
+SELECT c.idcomunidade, c.nome, c.descricao, c.categoria
+FROM comunidades c
+LEFT JOIN comunidade_usuario cu ON c.idcomunidade = cu.idcomunidade AND cu.idusuario = 2
+WHERE cu.idusuario IS NULL;
