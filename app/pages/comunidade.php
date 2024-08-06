@@ -46,8 +46,6 @@
     echo "<a href='../actions/comunidade/adicionar_postagem.php?idcomunidade=" . $idcomunidade . "' class='btn-criar'>";
     echo "<img src='../../public/img/MAIS.svg' alt='Adicionar Postagem' class='btn-img'>";
     echo "</a>";
-    echo "</div>";
-
     // Ajuste a consulta para filtrar por idcomunidade
     $sql = "SELECT p.idpostagem, p.titulo, p.conteudo, p.data_envio, p.hora_envio, p.arquivo, u.idusuario, u.nome AS nome_usuario, u.email, u.foto
             FROM postagem p
@@ -159,8 +157,9 @@
     } else {
         echo "<div class='container1'>Nenhuma publicação encontrada.</div>";
     }
-
+    echo "</div>";
     $conn->close();
     ?>
+        <footer><p id="textobaixo">TDAHTÉGIA &#169;<br>77 98251760</p></footer>
 </body>
 </html>

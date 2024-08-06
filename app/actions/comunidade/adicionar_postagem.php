@@ -2,14 +2,10 @@
 session_start();
 require_once("../../config/validacoes.php");
 require_once("../../config/conecta.php");
-
-// Verifica se o usuário está logado
 if (!isset($_SESSION['id_usuario'])) {
     header("Location: ../../pages/login.php");
     exit();
 }
-
-// Obtém a conexão com o banco de dados
 conecta();
 
 // Função para limpar a entrada de dados
@@ -90,8 +86,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "<p>Erro no upload do arquivo: " . $_FILES['arquivo']['error'] . "</p>";
     }
 }
-
-// Fecha a conexão
 desconecta();
 ?>
 
@@ -101,62 +95,129 @@ desconecta();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Adicionar Postagem</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-        }
-        .form-container {
-            background: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            margin: 20px;
-            max-width: 600px;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .form-container h1 {
-            margin-bottom: 20px;
-            font-size: 24px;
-            color: #333;
-        }
-        .form-container textarea,
-        .form-container input[type="text"],
-        .form-container input[type="file"],
-        .form-container input[type="hidden"] {
-            width: 100%;
-            max-width: 100%;
-            border-radius: 5px;
-            border: 1px solid #ddd;
-            padding: 10px;
-            margin-bottom: 20px;
-        }
-        .form-container textarea {
-            height: 150px;
-        }
-        .form-container input[type="submit"] {
-            background: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            padding: 10px 20px;
-            cursor: pointer;
-        }
-        .form-container input[type="submit"]:hover {
-            background: #0056b3;
-        }
+/* Reset básico */
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+/* Estilos gerais do corpo */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Container do formulário */
+.form-container {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 20px;
+    max-width: 600px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Estilo do título */
+.form-container h1 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+}
+
+/* Estilo dos campos de entrada */
+.form-container textarea,
+.form-container input[type="text"],
+.form-container input[type="file"],
+.form-container input[type="hidden"] {
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+/* Estilo específico para o campo de texto */
+.form-container textarea {
+    height: 150px;
+    resize: vertical;
+}
+
+/* Estilo do botão de envio */
+.form-container input[type="submit"] {
+    background: #FF7621;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* Estilo do botão de envio em hover */
+.form-container input[type="submit"]:hover {
+    background: #FF914D;
+}
+
+/* Estilo do campo de upload */
+.form-container input[type="file"] {
+    font-size: 16px;
+    padding: 10px;
+}
+
+/* Responsividade para telas menores */
+@media only screen and (max-width: 768px) {
+    .form-container {
+        margin: 10px;
+        padding: 15px;
+    }
+    
+    .form-container h1 {
+        font-size: 20px;
+    }
+
+    .form-container textarea {
+        height: 120px;
+    }
+
+    .form-container input[type="submit"] {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+}
+.voltar {
+    color: black;
+    position: fixed;
+    left: 10%;
+    top: 5%;
+    font-size: 3rem;
+    font-variation-settings: 'FILL' 0, 'wght' 1000, 'GRAD' 300, 'opsz' 0;
+}
     </style>
 </head>
 <body>
+<?php
+    require_once("../../config/conecta.php");
+    conecta();
+    $idcomunidade = isset($_GET['idcomunidade']) ? intval($_GET['idcomunidade']) : 0;
+    ?>
+<a href="../../pages/comunidade.php?idcomunidade=<?php echo htmlspecialchars($idcomunidade); ?>" class="voltar">
+<i class="material-symbols-outlined voltar">arrow_back_ios</i>
+</a>
     <div class="form-container">
         <h1>Adicionar Postagem</h1>
         <form action="adicionar_postagem.php?idcomunidade=<?php echo htmlspecialchars($idcomunidade); ?>" method="post" enctype="multipart/form-data">
