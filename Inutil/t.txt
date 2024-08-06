@@ -92,6 +92,17 @@ ALTER TABLE comunidades
 ADD COLUMN categoria VARCHAR(50) NOT NULL AFTER descricao;
 
 
++ uma
+CREATE TABLE `material` (
+  `idmaterial` int(11) NOT NULL AUTO_INCREMENT,
+  `arquivo` varchar(500) DEFAULT NULL,
+  `titulo` varchar(255) DEFAULT NULL,
+  `descricao` varchar(255) DEFAULT NULL,
+  `data_envio` date NOT NULL,
+  `hora_envio` time NOT NULL,
+  `idusuario` int(11) DEFAULT NULL,
+  PRIMARY KEY (`idmaterial`)
+);
 
 
 

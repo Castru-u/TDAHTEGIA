@@ -41,7 +41,7 @@ if ($pesquisa) {
     $types_minhas .= 's';
 }
 
-$stmt_minhas = $mysqli->prepare($sql_minhas); // Usa $mysqli do conecta.php
+$stmt_minhas = $mysqli->prepare($sql_minhas); 
 $stmt_minhas->bind_param($types_minhas, ...$params_minhas);
 $stmt_minhas->execute();
 $result_minhas = $stmt_minhas->get_result();
@@ -64,7 +64,7 @@ if ($pesquisa) {
     $types_outros .= 'ss';
 }
 
-$stmt_outros = $mysqli->prepare($sql_outros); // Usa $mysqli do conecta.php
+$stmt_outros = $mysqli->prepare($sql_outros); 
 if ($types_outros) {
     $stmt_outros->bind_param($types_outros, ...$params_outros);
 }
@@ -73,7 +73,6 @@ $result_outros = $stmt_outros->get_result();
 
 desconecta();
 ?>
-
 
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -101,14 +100,13 @@ desconecta();
 
             <!-- Botão Criar Comunidade -->
             <div class="button-container">
-                <a href="criar_comunidade.php" class="btn-criar"><img src="../../public/img/MAIS.svg" alt="" class="btn-img"></a>
+                <button id="createCommunity" class="btn-criar"><img src="../../public/img/MAIS.svg" alt="" class="btn-img"></button>
             </div>
         </div>
 
         <!-- Minhas Comunidades -->
         <div class="minhas_comunidades">
             <?php
-                session_start();
                 if (isset($_SESSION['message'])) {
                     echo "<p>" . $_SESSION['message'] . "</p>";
                     unset($_SESSION['message']);
@@ -117,7 +115,7 @@ desconecta();
             <h1>MINHAS COMUNIDADES</h1>
             <?php if ($result_minhas->num_rows > 0): ?>
                 <?php while($row_minhas = $result_minhas->fetch_assoc()): ?>
-                    <div class="blococom">
+                    <div class="blococom" >
                         <div class="comunidade" id="redirectDiv_<?php echo $row_minhas['idcomunidade']; ?>">
                             <?php if ($row_minhas['imagem']): ?>
                                 <img src="data:image/jpeg;base64,<?php echo base64_encode($row_minhas['imagem']); ?>" alt="">
@@ -130,9 +128,8 @@ desconecta();
                             </div>
                         </div>
                         <div class="botoes_crud">
-                            <button class="btn_entrar_cm" data-id="<?php echo $row_minhas['idcomunidade']; ?>" data-acao="sair">Sair</button> 
+                            <button class="btn_entrar_cm" data-id="<?php echo $row_minhas['idcomunidade']; ?>" data-acao="sair">Sair</button>
                             <button class="btn_entrar_cm" onclick="redirectToEdit(<?php echo $row_minhas['idcomunidade']; ?>)">Editar</button>
-
                         </div>
                     </div>
                 <?php endwhile; ?>
@@ -141,12 +138,12 @@ desconecta();
             <?php endif; ?>
         </div>
 
+        <!-- Outras Comunidades -->
         <div class="sugestoes_de_comunidade">
             <h1>OUTRAS COMUNIDADES</h1>
             <?php if ($result_outros->num_rows > 0): ?>
                 <?php while($row_outros = $result_outros->fetch_assoc()): ?>
                     <?php
-                        // Verifica se a comunidade já foi exibida
                         $already_displayed = false;
                         if ($result_minhas->num_rows > 0) {
                             $result_minhas->data_seek(0); 
@@ -184,6 +181,6 @@ desconecta();
     </main>
     <footer><p id="textobaixo">TDAHTÉGIA &#169;<br>77 98251760</p></footer>
 
-  <script src="../../public/js/mostrar.js"></script>
+    <script src="../../public/js/mostrar.js"></script>
 </body>
 </html>

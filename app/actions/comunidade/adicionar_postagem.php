@@ -2,27 +2,39 @@
 session_start();
 require_once("../../config/validacoes.php");
 require_once("../../config/conecta.php"); 
+
 if (!isset($_SESSION['id_usuario'])) {
     header("Location: ../../pages/login.php");
     exit();
 }
+
 conecta(); 
+
 function limparEntrada($data) {
     return htmlspecialchars(stripslashes(trim($data)));
 }
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $titulo = limparEntrada($_POST['titulo']);
     $conteudo = limparEntrada($_POST['conteudo']);
     $idusuario = intval($_SESSION['id_usuario']); 
     $idcomunidade = intval($_POST['idcomunidade']);
-    $arquivoNome = $_FILES['arquivo']['name'];
-    $arquivoTmpNome = $_FILES['arquivo']['tmp_name'];
-    $arquivoErro = $_FILES['arquivo']['error'];
-    $diretorioUploads = '/opt/lampp/htdocs/TDAHTEGIA/public/uploads/';
-    $arquivoNovoNome = uniqid('', true) . '-' . basename($arquivoNome);
-    $caminhoArquivo = $diretorioUploads . $arquivoNovoNome;
-    if ($arquivoErro === 0) {
-        if (move_uploaded_file($arquivoTmpNome, $caminhoArquivo)) {
+
+    // Verificar se o arquivo foi enviado
+    if (isset($_FILES['arquivo']) && $_FILES['arquivo']['error'] === UPLOAD_ERR_OK) {
+        $arquivoNome = $_FILES['arquivo']['name'];
+        $arquivoTmpNome = $_FILES['arquivo']['tmp_name'];
+        $arquivoErro = $_FILES['arquivo']['error'];
+        $diretorioUploads = '/opt/lampp/htdocs/TDAHTEGIA/public/uploads/';
+        $arquivoNovoNome = uniqid('', true) . '-' . basename($arquivoNome);
+        $caminhoArquivo = $diretorioUploads . $arquivoNovoNome;
+
+        // Validar o tipo de arquivo
+        $tipoArquivo = strtolower(pathinfo($arquivoNome, PATHINFO_EXTENSION));
+        $tiposPermitidos = ['jpg', 'jpeg', 'png', 'gif', 'mp4', 'pdf'];
+        if (!in_array($tipoArquivo, $tiposPermitidos)) {
+            echo "<p>Tipo de arquivo não permitido.</p>";
+        } elseif (move_uploaded_file($arquivoTmpNome, $caminhoArquivo)) {
             $sql = "INSERT INTO postagem (titulo, conteudo, arquivo, idusuario, idcomunidade, data_envio, hora_envio) VALUES (?, ?, ?, ?, ?, CURDATE(), CURTIME())";
             if ($stmt = $mysqli->prepare($sql)) {
                 $stmt->bind_param("sssii", $titulo, $conteudo, $arquivoNovoNome, $idusuario, $idcomunidade);
@@ -45,6 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "<p>Erro no upload do arquivo: " . $_FILES['arquivo']['error'] . "</p>";
     }
 }
+
 desconecta();
 ?>
 <!DOCTYPE html>
