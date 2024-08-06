@@ -72,9 +72,6 @@ main, aside {
 	display: flex;
     flex-direction: column;
 }
-
-/* Seletores para formatação individual. */
-
 header {
 	background: #FF7621;
 	display: flex;
