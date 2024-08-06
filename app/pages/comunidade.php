@@ -30,14 +30,11 @@
 </head>
 <body>
     <?php include('cabecalho.php'); ?>
-
-    <div class="container_pri">
-        <!-- Botão Criar Postagem -->
-        <div class="button-container">
-            <a href="../actions/comunidade/adicionar_postagem.php" class="btn-criar">
-                <img src="../../public/img/MAIS.svg" alt="Adicionar Postagem" class="btn-img">
-            </a>
-        </div>
+    <!-- Botão Criar Postagem -->
+    <div class="container1">
+        <a href="../actions/comunidade/adicionar_postagem.php" class="btn-criar">
+            <img src="../../public/img/MAIS.svg" alt="Adicionar Postagem" class="btn-img">
+        </a>
     </div>
 
     <?php
@@ -126,6 +123,11 @@
                 }
             }
 
+            // Botão Deletar
+            if ($row['idusuario'] == $idusuario || $_SESSION['role'] == 'admin') {
+                echo "<a href='../actions/comunidade/deletar_postagem.php?idpostagem=" . $row["idpostagem"] . "' class='btn-deletar' onclick=\"return confirm('Você tem certeza que deseja deletar esta postagem?');\">Deletar Postagem</a>";
+            }
+                
             echo "</div>"; // Fecha .descricao
 
             // Consulta para obter os 3 comentários mais recentes

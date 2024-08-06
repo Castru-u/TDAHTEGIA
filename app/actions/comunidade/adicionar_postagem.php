@@ -54,7 +54,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt->bind_param("sssii", $titulo, $conteudo, $arquivoNovoNome, $idusuario, $idcomunidade);
 
             if ($stmt->execute()) {
-                echo "<p>Postagem adicionada com sucesso!</p>";
+                header("Location: ../../pages/comunidade.php?success=1");
+                // echo "<p>Postagem adicionada com sucesso!</p>";
             } else {
                 echo "<p>Erro ao adicionar postagem: " . $stmt->error . "</p>";
             }

@@ -1,12 +1,24 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
 .container1 {
     width: 100%;
     min-width: 100%;
-    display: flex; /* Adiciona flexbox */
-    justify-content: center; /* Centraliza horizontalmente */
-    align-items: center; /* Centraliza verticalmente */
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
     flex-direction: column;
 }
-
+.container1 .btn-criar img{
+    width: 40px;
+}
+.container1 .btn-criar {
+    align-self: flex-start; 
+    margin-left: 200px; 
+    margin-top: 10px;
+}
 .container {
     background: #fff;
     border-radius: 10px;
@@ -16,7 +28,6 @@
     max-width: 800px;
     width: 100%;
 }
-
 .perfil-foto {
     display: flex;
     align-items: center;
@@ -34,11 +45,9 @@
     font-size: 20px;
     margin: 0;
 }
-
 .descricao {
     margin: 10px 0;
 }
-
 .postagem-titulo {
     font-size: 24px;
     margin: 0;
@@ -48,25 +57,21 @@
 .descricao img {
     max-width: 100%;
     height: auto;
-    max-height: 400px; /* Limita a altura das imagens */
+    /* max-height: 400px;  */
 }
-
 .arquivo-container {
     display: flex;
     align-items: center;
     margin: 10px 0;
 }
-
 .arquivo-container img {
     max-width: 100px;
     height: auto;
     margin-right: 10px;
 }
-
 .arquivo-container .arquivo-info {
     flex: 1;
 }
-
 .arquivo-container .arquivo-info p {
     margin: 0;
 }
@@ -80,17 +85,12 @@
     cursor: pointer;
     text-decoration: none;
 }
-
 .arquivo-container .download-btn:hover {
     background-color: #0056b3;
 }
 
 .comentarios {
     margin-top: 20px;
-}
-.form-comentario{
-    text-align: center;
-    align-items: center;
 }
 .form-comentario textarea {
     width: 80%;
@@ -109,30 +109,24 @@
     padding: 10px 20px;
     cursor: pointer;
 }
-
 .form-comentario input[type="submit"]:hover {
     background: #0056b3;
 }
-
 .comentarios h2 {
     font-size: 20px;
     color: #333;
     margin-bottom: 10px;
 }
-
 .perfil_organizado {
     display: flex;
     align-items: center;
-    /* margin-bottom: 10px; */
 }
-
 .perfil_organizado img {
     width: 40px;
     height: 40px;
     border-radius: 50%;
     margin-right: 10px;
 }
-
 .comentario {
     display: flex;
     flex-direction: column;
@@ -141,40 +135,34 @@
     border: 1px solid #ddd;
     border-radius: 5px;
     background: #fafafa;
-    max-width: 100%; /* Garante que a largura não ultrapasse a div pai */
-    min-height: 50px; /* Define uma altura mínima */
-    overflow-wrap: break-word; /* Quebra palavras longas para ajustar o conteúdo */
-    word-wrap: break-word; /* Para compatibilidade com navegadores mais antigos */
+    max-width: 100%;
+    min-height: 50px; 
+    overflow-wrap: break-word; 
+    word-wrap: break-word; 
 }
-
 .comentario h3 {
     margin: 0;
     font-size: 16px;
     color: #333;
 }
-
 .comentario p {
     margin: 5px 30px 0 40px; 
-    word-wrap: break-word; /* Quebra a linha do texto longo */
+    word-wrap: break-word;
 }
-
-
 .comentarios a {
     color: #007bff;
     text-decoration: none;
     font-weight: bold;
 }
-
 .comentarios a:hover {
     text-decoration: underline;
 }
 .btn-enviar{
     margin-left: 10px;
 }
-
-.btn-download {
+.btn-download{
     display: inline-block;
-    background-color: #007bff;
+    background-color: #ee6e1f;
     color: white;
     padding: 5px 10px;
     border-radius: 3px;
@@ -183,7 +171,31 @@
     margin-top: 10px;
 }
 .btn-download:hover {
-    background-color: #0056b3;
+    background-color: #ee6e1f9d;
+}
+.btn-deletar{
+    display: inline-block;
+    background-color: #ee6e1f;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 3px;
+    text-decoration: none;
+    font-size: 12px;
+    margin-top: 10px;
+    margin-left: 5px;
+}
+.btn-deletar:hover {
+    background-color: #ee6e1f9d;
+}
+.btn-enviar{
+    background-color: #ee6e1f;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 3px;
+    text-decoration: none;
+    font-size: 12px;
+    margin-top: 10px;
+    margin-left: 5px;
 }
 .arquivo-container {
     margin-top: 10px;
