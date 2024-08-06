@@ -1,12 +1,14 @@
 <?php
 session_start();
 require_once("../config/validacoes.php");
+require_once("../config/conecta.php"); // Inclui o arquivo de conexão
 
 // Verificar se o usuário está logado
 if (!isset($_SESSION['id_usuario'])) {
     header("Location: login.php");
     exit();
 }
+
 // Acessar informações do usuário
 $idusuario = $_SESSION['id_usuario']; 
 $usuario = $_SESSION['email']; 
@@ -14,16 +16,8 @@ $nome = $_SESSION['nome'];
 
 define('BASE_PATH', __DIR__ . '/../../app/pages');
 
-$servername = "localhost"; 
-$username = "root";        
-$password = "";            
-$dbname = "tdahtegia";     
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-if ($conn->connect_error) {
-    die("Conexão falhou: " . $conn->connect_error);
-}
+// Estabelece a conexão com o banco de dados
+conecta(); // Usa a função do arquivo conecta.php para conectar ao banco de dados
 
 $categorias = ["matematica", "fisica", "quimica", "biologia", "vestibular"];
 
@@ -51,7 +45,7 @@ if ($pesquisa) {
     $types_minhas .= 's';
 }
 
-$stmt_minhas = $conn->prepare($sql_minhas);
+$stmt_minhas = $mysqli->prepare($sql_minhas); // Usa $mysqli do conecta.php
 $stmt_minhas->bind_param($types_minhas, ...$params_minhas);
 $stmt_minhas->execute();
 $result_minhas = $stmt_minhas->get_result();
@@ -74,15 +68,16 @@ if ($pesquisa) {
     $types_outros .= 'ss';
 }
 
-$stmt_outros = $conn->prepare($sql_outros);
+$stmt_outros = $mysqli->prepare($sql_outros); // Usa $mysqli do conecta.php
 if ($types_outros) {
     $stmt_outros->bind_param($types_outros, ...$params_outros);
 }
 $stmt_outros->execute();
 $result_outros = $stmt_outros->get_result();
 
-$conn->close();
+desconecta(); // Fecha a conexão usando a função definida em conecta.php
 ?>
+
 
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -196,7 +191,7 @@ $conn->close();
                
     <script>
     function redirectToEdit(comunidadeId) {
-        window.location.href = 'comunidade.php?idcomunidade=' + comunidadeId;
+        window.location.href = 'crud.php?idcomunidade=' + comunidadeId;
     }
 
     document.querySelectorAll('.btn_entrar_cm').forEach(button => {
@@ -271,7 +266,7 @@ $conn->close();
 
      // JavaScript para redirecionamento
      document.getElementById('redirectDiv').addEventListener('click', function() {
-            window.location.href = 'http://localhost/TDAHTEGIA/app/pages/comunidade.php'; // URL para onde será redirecionado
+            window.location.href = 'http://localhost/TDAHTEGIA/app/pages/mostrar_comunidade.php'; // URL para onde será redirecionado
         });
 </script>
 

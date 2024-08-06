@@ -1,66 +1,43 @@
 <?php
 session_start();
 require_once("../../config/validacoes.php");
-// Verificar se o usuário está logado
+require_once("../../config/conecta.php"); 
 if (!isset($_SESSION['id_usuario'])) {
     header("Location: ../../pages/login.php");
     exit();
 }
-
-// Configurações do banco de dados
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "tdahtegia";
-
-// Cria a conexão com o banco de dados
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Verifica a conexão
-if ($conn->connect_error) {
-    die("Conexão falhou: " . $conn->connect_error);
-}
-
-// Função para limpar dados
+conecta(); 
 function limparEntrada($data) {
     return htmlspecialchars(stripslashes(trim($data)));
 }
-
-// Verifica se o formulário foi enviado
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $titulo = limparEntrada($_POST['titulo']);
     $conteudo = limparEntrada($_POST['conteudo']);
-    $idusuario = intval($_SESSION['id_usuario']); // Obtém o ID do usuário logado da sessão
+    $idusuario = intval($_SESSION['id_usuario']); 
     $idcomunidade = intval($_POST['idcomunidade']);
-
-    // Processa o upload do arquivo
     $arquivoNome = $_FILES['arquivo']['name'];
     $arquivoTmpNome = $_FILES['arquivo']['tmp_name'];
     $arquivoErro = $_FILES['arquivo']['error'];
-    
-    // Define o diretório para o upload
     $diretorioUploads = '/opt/lampp/htdocs/TDAHTEGIA/public/uploads/';
-    
-    // Gera um nome único para o arquivo
     $arquivoNovoNome = uniqid('', true) . '-' . basename($arquivoNome);
     $caminhoArquivo = $diretorioUploads . $arquivoNovoNome;
-
     if ($arquivoErro === 0) {
-        // Move o arquivo para o diretório de uploads
         if (move_uploaded_file($arquivoTmpNome, $caminhoArquivo)) {
-            // Insere a postagem no banco de dados
             $sql = "INSERT INTO postagem (titulo, conteudo, arquivo, idusuario, idcomunidade, data_envio, hora_envio) VALUES (?, ?, ?, ?, ?, CURDATE(), CURTIME())";
-            $stmt = $conn->prepare($sql);
-            $stmt->bind_param("sssii", $titulo, $conteudo, $arquivoNovoNome, $idusuario, $idcomunidade);
+            if ($stmt = $mysqli->prepare($sql)) {
+                $stmt->bind_param("sssii", $titulo, $conteudo, $arquivoNovoNome, $idusuario, $idcomunidade);
 
-            if ($stmt->execute()) {
-                header("Location: ../../pages/comunidade.php?success=1");
-                // echo "<p>Postagem adicionada com sucesso!</p>";
+                if ($stmt->execute()) {
+                    header("Location: ../../pages/comunidade.php?success=1");
+                    exit();
+                } else {
+                    echo "<p>Erro ao adicionar postagem: " . $stmt->error . "</p>";
+                }
+
+                $stmt->close();
             } else {
-                echo "<p>Erro ao adicionar postagem: " . $stmt->error . "</p>";
+                echo "<p>Erro ao preparar a consulta: " . $mysqli->error . "</p>";
             }
-
-            $stmt->close();
         } else {
             echo "<p>Erro ao mover o arquivo para o diretório de uploads.</p>";
         }
@@ -68,8 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "<p>Erro no upload do arquivo: " . $_FILES['arquivo']['error'] . "</p>";
     }
 }
-
-$conn->close();
+desconecta();
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">

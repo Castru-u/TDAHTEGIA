@@ -1,22 +1,16 @@
 <?php
 session_start();
 require_once("../../config/validacoes.php");
+require_once("../../config/conecta.php"); // Inclui o arquivo de conexão
 
+// Verifica se o usuário está logado
 if (!isset($_SESSION['id_usuario'])) {
     header("Location: ../../pages/login.php");
     exit();
 }
 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "tdahtegia";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-if ($conn->connect_error) {
-    die("Conexão falhou: " . $conn->connect_error);
-}
+// Estabelece a conexão com o banco de dados
+conecta(); // Usa a função do arquivo conecta.php para conectar ao banco de dados
 
 $action = $_POST['action'] ?? '';
 $idcomunidade = intval($_POST['idcomunidade'] ?? 0);
@@ -35,7 +29,7 @@ switch ($action) {
             $imagem = null;
         }
 
-        $stmt = $conn->prepare("INSERT INTO comunidades (nome, descricao, categoria, imagem) VALUES (?, ?, ?, ?)");
+        $stmt = $mysqli->prepare("INSERT INTO comunidades (nome, descricao, categoria, imagem) VALUES (?, ?, ?, ?)");
         $stmt->bind_param('ssss', $nome, $descricao, $categoria, $imagem);
         if ($stmt->execute()) {
             header("Location: ../../pages/crud.php?success=1");
@@ -48,10 +42,10 @@ switch ($action) {
     case 'update':
         if (!empty($_FILES['imagem']['tmp_name'])) {
             $imagem = file_get_contents($_FILES['imagem']['tmp_name']);
-            $stmt = $conn->prepare("UPDATE comunidades SET nome = ?, descricao = ?, categoria = ?, imagem = ? WHERE idcomunidade = ?");
+            $stmt = $mysqli->prepare("UPDATE comunidades SET nome = ?, descricao = ?, categoria = ?, imagem = ? WHERE idcomunidade = ?");
             $stmt->bind_param('ssssi', $nome, $descricao, $categoria, $imagem, $idcomunidade);
         } else {
-            $stmt = $conn->prepare("UPDATE comunidades SET nome = ?, descricao = ?, categoria = ? WHERE idcomunidade = ?");
+            $stmt = $mysqli->prepare("UPDATE comunidades SET nome = ?, descricao = ?, categoria = ? WHERE idcomunidade = ?");
             $stmt->bind_param('sssi', $nome, $descricao, $categoria, $idcomunidade);
         }
         if ($stmt->execute()) {
@@ -63,7 +57,7 @@ switch ($action) {
         break;
 
     case 'add_user':
-        $stmt = $conn->prepare("INSERT INTO comunidade_usuario (idcomunidade, idusuario, role) VALUES (?, ?, ?)");
+        $stmt = $mysqli->prepare("INSERT INTO comunidade_usuario (idcomunidade, idusuario, role) VALUES (?, ?, ?)");
         $stmt->bind_param('iis', $idcomunidade, $idusuario, $role);
         if ($stmt->execute()) {
             header("Location: ../../pages/mostrar_comunidade.php?idcomunidade=$idcomunidade&success=1");
@@ -74,7 +68,7 @@ switch ($action) {
         break;
 
     case 'remove_user':
-        $stmt = $conn->prepare("DELETE FROM comunidade_usuario WHERE idcomunidade = ? AND idusuario = ?");
+        $stmt = $mysqli->prepare("DELETE FROM comunidade_usuario WHERE idcomunidade = ? AND idusuario = ?");
         $stmt->bind_param('ii', $idcomunidade, $idusuario);
         if ($stmt->execute()) {
             header("Location: ../../pages/mostrar_comunidade.php?idcomunidade=$idcomunidade&success=1");
@@ -88,5 +82,6 @@ switch ($action) {
         header("Location: ../../pages/crud.php?error=1");
 }
 
-$conn->close();
+// Fecha a conexão com o banco de dados
+desconecta();
 ?>
