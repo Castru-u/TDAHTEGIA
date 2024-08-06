@@ -20,8 +20,8 @@ document.querySelectorAll('.btn_entrar_cm').forEach(button => {
             })
             .then(response => response.text())
             .then(result => {
-                alert(result); // Exibe o resultado do PHP
-                location.reload(); // Atualiza a página
+                alert(result); 
+                location.reload(); 
             })
             .catch(error => console.error('Erro:', error));
         }
@@ -72,9 +72,13 @@ document.getElementById('search').addEventListener('keydown', function(event) {
 
 document.getElementById('category').addEventListener('change', handleInputChange);
 
- // JavaScript para redirecionamento
- document.querySelectorAll('[id^="redirectDiv_"]').forEach(element => {
-element.addEventListener('click', function() {
-    window.location.href = 'http://localhost/TDAHTEGIA/app/pages/comunidade.php';
+document.querySelectorAll('[id^="redirectDiv_"]').forEach(element => {
+    element.addEventListener('click', function() {
+        const comunidadeId = this.id.replace('redirectDiv_', '');
+        window.location.href = 'comunidade.php?idcomunidade=' + comunidadeId;
+    });
 });
+
+document.getElementById('createCommunity').addEventListener('click', function() {
+    window.location.href = 'criar_comunidade.php';
 });
