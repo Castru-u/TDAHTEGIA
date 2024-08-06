@@ -201,6 +201,10 @@ a {
 	display: none;
 }
 
+.flex{
+	display: flex;
+}
+
 #imgconfig{
 	display: flex;
 	flex-direction: column;
