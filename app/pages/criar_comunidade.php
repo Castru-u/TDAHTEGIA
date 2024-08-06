@@ -53,7 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmtAssociacao->bind_param('ii', $idcomunidade, $idusuario);
 
             if ($stmtAssociacao->execute()) {
-                header('Location: http://localhost/TDAHTEGIA/Inutil/materias/mostrar_comunidades.php');
+                header('Location: http://localhost/TDAHTEGIA/app/pages/mostrar_comunidade.php');
                 exit();
             } else {
                 $mensagem = "Erro ao associar usuário à comunidade: " . $stmtAssociacao->error;

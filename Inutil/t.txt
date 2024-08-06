@@ -84,6 +84,14 @@ CREATE TABLE comentarios_postagem (
     FOREIGN KEY (idpostagem) REFERENCES postagem(idpostagem),
     FOREIGN KEY (idcomunidade) REFERENCES comunidade(idcomunidade)
 );
+ALTER TABLE comunidades
+ADD COLUMN imagem LONGBLOB DEFAULT NULL;
+
+
+ALTER TABLE comunidades
+ADD COLUMN categoria VARCHAR(50) NOT NULL AFTER descricao;
+
+
 
 
 

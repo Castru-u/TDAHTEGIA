@@ -60,6 +60,22 @@
         $stmt->close();
     }
 
+    // Verificar se o usuário logado é admin da comunidade
+    $isAdmin = false;
+    if ($idcomunidade) {
+        $stmt = $conn->prepare("SELECT role FROM comunidade_usuario WHERE idcomunidade = ? AND idusuario = ?");
+        $stmt->bind_param('ii', $idcomunidade, $idusuario);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($result->num_rows > 0) {
+            $role = $result->fetch_assoc()['role'];
+            if ($role === 'admin') {
+                $isAdmin = true;
+            }
+        }
+        $stmt->close();
+    }
+
     $conn->close();
     ?>
 
@@ -93,6 +109,12 @@
             <button class="botao-enviar" type="submit" name="action" value="<?php echo $idcomunidade ? 'update' : 'create'; ?>">
                 <?php echo $idcomunidade ? 'Atualizar' : 'Criar'; ?>
             </button>
+
+            <?php if ($idcomunidade && $isAdmin): ?>
+                <button class="botao-deletar" type="submit" name="action" value="delete" onclick="return confirm('Tem certeza de que deseja excluir esta comunidade?');">
+                    Excluir Comunidade
+                </button>
+            <?php endif; ?>
         </form>
 
         <h2 class="titulo-secao">Gerenciar Usuários da Comunidade</h2>
@@ -118,7 +140,6 @@
             </select>
             <label for="role">Função:</label>
             <select id="role" name="role" required>
-                <!-- <option value="comum">Comum</option> -->
                 <option value="admin">Admin</option>
                 <option value="membro">Membro</option>
             </select>
@@ -140,9 +161,11 @@
                         <td><?php echo htmlspecialchars($usuario['usuario']); ?></td>
                         <td><?php echo htmlspecialchars($usuario['role']); ?></td>
                         <td>
-                        <a href="../actions/comunidade/deletar.php?action=remove_user&idcomunidade=<?php echo urlencode($idcomunidade); ?>&idusuario=<?php echo urlencode($usuario['idusuario']); ?>" onclick="return confirm('Tem certeza de que deseja remover este usuário?');">
-                            Remover
-                        </a>
+                            <?php if ($isAdmin): ?>
+                                <a href="../actions/comunidade/deletar.php?action=remove_user&idcomunidade=<?php echo urlencode($idcomunidade); ?>&idusuario=<?php echo urlencode($usuario['idusuario']); ?>" onclick="return confirm('Tem certeza de que deseja remover este usuário?');">
+                                    Remover
+                                </a>
+                            <?php endif; ?>
                         </td>
                     </tr>
                 <?php endforeach; ?>
