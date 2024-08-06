@@ -93,7 +93,7 @@ $conn->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Criar Comunidade</title>
-    <link rel="stylesheet" href="material.css">
+    <link rel="stylesheet" href="../../public/css/material.css">
 </head>
 <body>
     <main>

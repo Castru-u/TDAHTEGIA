@@ -177,7 +177,7 @@ desconecta();
                                 </div>
                             </div>
                             <div class="botoes_crud">
-                                <button class="btn_entrar_cm" data-id="<?php echo $row_outros['idcomunidade']; ?>" data-acao="entrar">Entrar</button>
+                                <button class="btn_entrar_cm" data-id="<?php echo $row_outros['idcomunidade']; ?>" data-acao="entrar">Participar</button>
                             </div>
                         </div>
                     <?php endif; ?>
