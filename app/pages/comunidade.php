@@ -11,7 +11,7 @@
     <?php 
     require_once('cabecalho.php'); 
     require_once('../config/validacoes.php');
-        
+    
     session_start();
 
     if (!isset($_SESSION['id_usuario'])) {
@@ -20,6 +20,15 @@
     }
 
     $idusuario = $_SESSION['id_usuario'];
+
+    // Captura o idcomunidade da URL
+    $idcomunidade = isset($_GET['idcomunidade']) ? intval($_GET['idcomunidade']) : 0;
+
+    // Verifica se o idcomunidade é válido (exemplo de validação, ajuste conforme necessário)
+    if ($idcomunidade <= 0) {
+        echo "<p>ID da comunidade inválido.</p>";
+        exit();
+    }
 
     $servername = "localhost";
     $username = "root";
@@ -33,16 +42,22 @@
     }
 
     echo "<div class='container1'>";
-    echo "<a href='../actions/comunidade/adicionar_postagem.php' class='btn-criar'>";
+    // Inclua o idcomunidade na URL
+    echo "<a href='../actions/comunidade/adicionar_postagem.php?idcomunidade=" . $idcomunidade . "' class='btn-criar'>";
     echo "<img src='../../public/img/MAIS.svg' alt='Adicionar Postagem' class='btn-img'>";
     echo "</a>";
     echo "</div>";
 
+    // Ajuste a consulta para filtrar por idcomunidade
     $sql = "SELECT p.idpostagem, p.titulo, p.conteudo, p.data_envio, p.hora_envio, p.arquivo, u.idusuario, u.nome AS nome_usuario, u.email, u.foto
             FROM postagem p
             JOIN usuario u ON p.idusuario = u.idusuario
+            WHERE p.idcomunidade = ?
             ORDER BY p.data_envio DESC, p.hora_envio DESC";
-    $result = $conn->query($sql);
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $idcomunidade);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
@@ -125,7 +140,7 @@
             } else {
                 echo "<p>Seja o primeiro a comentar!</p>";
             }
-            echo "<a href='comentarios.php?publicacao_id=" . $row["idpostagem"] . "'>Ver + Comentários</a>";
+            echo "<a href='comentarios.php?publicacao_id=" . $row["idpostagem"] . "&idcomunidade=" . $idcomunidade . "'>Ver + Comentários</a>";
             echo "</div>";
 
             echo "<div class='form-comentario'>";
@@ -133,8 +148,9 @@
             echo "<form action='../actions/comunidade/adicionar_comentario.php' method='post'>";
             echo "<input type='hidden' name='idusuario' value='" . $idusuario . "'>";
             echo "<input type='hidden' name='publicacao_id' value='" . $row["idpostagem"] . "'>";
+            echo "<input type='hidden' name='idcomunidade' value='" . $idcomunidade . "'>";
             echo "<textarea name='comentario' placeholder='Escreva seu comentário aqui...' required></textarea>";
-            echo "<button type='button' class='btn-enviar'>Enviar</button>";
+            echo "<button type='submit' class='btn-enviar'>Enviar</button>";
             echo "</form>";
             echo "</div>";
 

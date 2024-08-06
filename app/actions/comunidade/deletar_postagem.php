@@ -21,7 +21,7 @@ if (isset($_GET['idpostagem'])) {
     $is_admin = $_SESSION['role'] == 'admin';
 
     // Verifica se a postagem pertence ao usuário ou se o usuário é admin
-    $sql_check = "SELECT idusuario FROM postagem WHERE idpostagem = ?";
+    $sql_check = "SELECT idusuario, idcomunidade FROM postagem WHERE idpostagem = ?";
     $stmt_check = $mysqli->prepare($sql_check);
     $stmt_check->bind_param("i", $idpostagem);
     $stmt_check->execute();
@@ -29,14 +29,16 @@ if (isset($_GET['idpostagem'])) {
 
     if ($result_check->num_rows > 0) {
         $post = $result_check->fetch_assoc();
+        $idcomunidade = $post['idcomunidade']; // Obtém o idcomunidade da postagem
         if ($post['idusuario'] == $idusuario || $is_admin) {
             // Deleta a postagem
             $sql_delete = "DELETE FROM postagem WHERE idpostagem = ?";
             $stmt_delete = $mysqli->prepare($sql_delete);
             $stmt_delete->bind_param("i", $idpostagem);
             if ($stmt_delete->execute()) {
-                // Redireciona para a página de publicações com sucesso
-                header("Location: ../../pages/comunidade.php?deletado=1");
+                // Redireciona para a página de publicações com idcomunidade
+                header("Location: ../../pages/comunidade.php?idcomunidade=" . $idcomunidade . "&deletado=1");
+                exit(); // Garante que o script pare após o redirecionamento
             } else {
                 echo "Erro ao deletar a postagem: " . $stmt_delete->error;
             }

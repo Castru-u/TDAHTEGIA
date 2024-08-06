@@ -8,14 +8,19 @@
     <link rel="stylesheet" href="../../public/css/comentarios.css">
 </head>
 <body>
-    <a href="comunidade.php" class="voltar"><i class="material-symbols-outlined voltar">arrow_back_ios</i></a>
+    <?php
+    require_once("../config/conecta.php");
+    conecta();
+    $idcomunidade = isset($_GET['idcomunidade']) ? intval($_GET['idcomunidade']) : 0;
+    $publicacao_id = isset($_GET['publicacao_id']) ? intval($_GET['publicacao_id']) : 0;
+    ?>
+    <a href="comunidade.php?idcomunidade=<?php echo htmlspecialchars($idcomunidade); ?>" class="voltar">
+        <i class="material-symbols-outlined voltar">arrow_back_ios</i>
+    </a>
     <div class="container">
         <div class="comentarios">
             <h2>Comentários</h2>
             <?php
-            require_once("../config/conecta.php"); 
-            conecta(); 
-            $publicacao_id = isset($_GET['publicacao_id']) ? intval($_GET['publicacao_id']) : 0;
             if ($publicacao_id > 0) {
                 $sql = "SELECT c.idusuario, u.nome AS autor, u.foto AS foto_usuario, c.comentario 
                         FROM comentarios_postagem c

@@ -1,51 +1,84 @@
 <?php
 session_start();
 require_once("../../config/validacoes.php");
-require_once("../../config/conecta.php"); 
+require_once("../../config/conecta.php");
 
+// Verifica se o usuário está logado
 if (!isset($_SESSION['id_usuario'])) {
     header("Location: ../../pages/login.php");
     exit();
 }
 
-conecta(); 
+// Obtém a conexão com o banco de dados
+conecta();
 
+// Função para limpar a entrada de dados
 function limparEntrada($data) {
     return htmlspecialchars(stripslashes(trim($data)));
 }
 
+// Captura o idcomunidade da URL
+$idcomunidade = isset($_GET['idcomunidade']) ? intval($_GET['idcomunidade']) : 0;
+
+// Função para verificar se o idcomunidade existe
+function verificarIdComunidade($idcomunidade) {
+    global $mysqli;
+    $sql = "SELECT 1 FROM comunidades WHERE idcomunidade = ?";
+    if ($stmt = $mysqli->prepare($sql)) {
+        $stmt->bind_param("i", $idcomunidade);
+        $stmt->execute();
+        $stmt->store_result();
+        $exists = $stmt->num_rows > 0;
+        $stmt->close();
+        return $exists;
+    } else {
+        echo "<p>Erro ao preparar a consulta: " . $mysqli->error . "</p>";
+        return false;
+    }
+}
+
+// Verifica se o idcomunidade é válido
+if (!verificarIdComunidade($idcomunidade)) {
+    echo "<p>ID da comunidade inválido.</p>";
+    desconecta();
+    exit();
+}
+
+// Verifica se o formulário foi enviado
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Depuração: Verifique o valor de idcomunidade recebido via POST
+    $idcomunidade_post = isset($_POST['idcomunidade']) ? intval($_POST['idcomunidade']) : 0;
+    echo "<p>ID da Comunidade via POST: " . $idcomunidade_post . "</p>";
+    
     $titulo = limparEntrada($_POST['titulo']);
     $conteudo = limparEntrada($_POST['conteudo']);
     $idusuario = intval($_SESSION['id_usuario']); 
-    $idcomunidade = intval($_POST['idcomunidade']);
+    $idcomunidade = $idcomunidade_post;
 
-    // Verificar se o arquivo foi enviado
+    // Verifica se o arquivo foi enviado
     if (isset($_FILES['arquivo']) && $_FILES['arquivo']['error'] === UPLOAD_ERR_OK) {
         $arquivoNome = $_FILES['arquivo']['name'];
         $arquivoTmpNome = $_FILES['arquivo']['tmp_name'];
-        $arquivoErro = $_FILES['arquivo']['error'];
         $diretorioUploads = '/opt/lampp/htdocs/TDAHTEGIA/public/uploads/';
         $arquivoNovoNome = uniqid('', true) . '-' . basename($arquivoNome);
         $caminhoArquivo = $diretorioUploads . $arquivoNovoNome;
 
-        // Validar o tipo de arquivo
+        // Valida o tipo de arquivo
         $tipoArquivo = strtolower(pathinfo($arquivoNome, PATHINFO_EXTENSION));
         $tiposPermitidos = ['jpg', 'jpeg', 'png', 'gif', 'mp4', 'pdf'];
         if (!in_array($tipoArquivo, $tiposPermitidos)) {
             echo "<p>Tipo de arquivo não permitido.</p>";
         } elseif (move_uploaded_file($arquivoTmpNome, $caminhoArquivo)) {
             $sql = "INSERT INTO postagem (titulo, conteudo, arquivo, idusuario, idcomunidade, data_envio, hora_envio) VALUES (?, ?, ?, ?, ?, CURDATE(), CURTIME())";
+            global $mysqli;
             if ($stmt = $mysqli->prepare($sql)) {
                 $stmt->bind_param("sssii", $titulo, $conteudo, $arquivoNovoNome, $idusuario, $idcomunidade);
-
                 if ($stmt->execute()) {
-                    header("Location: ../../pages/comunidade.php?success=1");
+                    header("Location: ../../pages/comunidade.php?idcomunidade=" . $idcomunidade . "&success=1");
                     exit();
                 } else {
                     echo "<p>Erro ao adicionar postagem: " . $stmt->error . "</p>";
                 }
-
                 $stmt->close();
             } else {
                 echo "<p>Erro ao preparar a consulta: " . $mysqli->error . "</p>";
@@ -58,8 +91,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
+// Fecha a conexão
 desconecta();
 ?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -124,11 +159,11 @@ desconecta();
 <body>
     <div class="form-container">
         <h1>Adicionar Postagem</h1>
-        <form action="adicionar_postagem.php" method="post" enctype="multipart/form-data">
+        <form action="adicionar_postagem.php?idcomunidade=<?php echo htmlspecialchars($idcomunidade); ?>" method="post" enctype="multipart/form-data">
             <input type="text" name="titulo" placeholder="Título da Postagem" required>
             <textarea name="conteudo" placeholder="Digite o conteúdo da postagem..." required></textarea>
             <input type="file" name="arquivo" accept="image/*,video/*,.pdf">
-            <input type="hidden" name="idcomunidade" value="1"> <!-- Altere conforme necessário ou remova se não for necessário -->
+            <input type="hidden" name="idcomunidade" value="<?php echo htmlspecialchars($idcomunidade); ?>">
             <input type="submit" value="Adicionar Postagem">
         </form>
     </div>
