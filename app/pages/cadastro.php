@@ -7,11 +7,11 @@
     <link rel="stylesheet" href="../../public/css/cadastro.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Alatsi|Kanit">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <link rel="shortcut icon" href="img/logo.png" type="image/x-icon">
+    <link rel="shortcut icon" href="../../public/img/logo.png" type="image/x-icon">
     
 </head>
 <body>
-    <a href="home.html"><i class="material-symbols-outlined voltar">
+    <a href="home.php"><i class="material-symbols-outlined voltar">
         arrow_back_ios
     </i></a>
 

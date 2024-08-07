@@ -10,7 +10,7 @@
     <link rel="shortcut icon" href="img/logo.png" type="image/x-icon">
 </head>
 <body>
-    <a href="home.html"><i class="material-symbols-outlined voltar">
+    <a href="home.php"><i class="material-symbols-outlined voltar">
         arrow_back_ios
     </i></a>
     
@@ -66,12 +66,6 @@ if(isset($_GET['msgLogin'])){
 </i>
 <input type="password" name="senha" id="" placeholder="Senha"></div>
 
-<div id="lembrar-esqueceu">
-    <label>
-        <input type="checkbox" name="" id="">  Lembrar senha
-    </label>
-    <a href="esqueceu.html">Esqueceu sua senha?</a>
-</div>
     <div id="botao"><button type="submit" id="entrar" disabled='true'>Entrar</button></div>
 </form>
     <p>Não possui uma conta? <a href="cadastro.php">Cadastre-se!</a></p>

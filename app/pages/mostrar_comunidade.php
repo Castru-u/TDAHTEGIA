@@ -1,5 +1,14 @@
-<?php
-session_start();
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comunidades</title>
+    <link rel="stylesheet" href="../../public/css/mostrar.css">
+</head>
+<body>
+<?php 
+require_once('cabecalho.php');
 require_once("../config/validacoes.php");
 require_once("../config/conecta.php"); // Inclui o arquivo de conexão
 
@@ -79,17 +88,6 @@ desconecta();
 ?>
 
 
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Comunidades</title>
-    <link rel="stylesheet" href="../../public/css/mostrar.css">
-</head>
-<body>
-    <?php require_once(BASE_PATH . '/cabecalho.php'); ?>
-
     <main class="container_main">
         <!-- Barra de Pesquisa e Seletor de Categorias -->
         <div class="search-container">
@@ -112,7 +110,6 @@ desconecta();
         <!-- Minhas Comunidades -->
         <div class="minhas_comunidades">
             <?php
-                session_start();
                 if (isset($_SESSION['message'])) {
                     echo "<p>" . $_SESSION['message'] . "</p>";
                     unset($_SESSION['message']);

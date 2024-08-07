@@ -31,7 +31,7 @@ if($result->num_rows > 0){
     $stmt = $mysqli->prepare($sql);
     $stmt->execute();
     if($stmt->affected_rows > 0){
-        $msg = "Consulta criada!.";
+        $msg = "Consulta criada!";
     }else{
         $msg = "Não foi possível criar a consulta, tente novamente mais tarde.";
     }

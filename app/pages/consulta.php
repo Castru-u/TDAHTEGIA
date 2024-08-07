@@ -8,25 +8,26 @@ require_once("../config/validacoes.php");
 ?>
 <link rel="stylesheet" href="../../public/css/consultas.css">
 
-<main><?php
-	if(isset($_GET['msg'])){
-		echo $_GET['msg'];
-	}
-  ?>
+<main>
+	<?php
+		if(isset($_GET['msg'])){
+			echo "<p id='msg'>{$_GET['msg']}</p>";
+		}
+  	?>
 
 	<div id='blocovirar' class='bloco none'>
 		<p>Os especialistas são responsáveis por conduzir consultas com pacientes da nossa plataforma, tratando de assuntos ou dificuldades relacionadas com o estudo ou com o TDAH e outros transtornos na vida cotidiana. Para se tornar especialista é necessário possuir uma formação na área da educação, psicologia ou outra relacionada</p>
 
-		<form action="" method="post" enctype="multipart/form-data">
+		<form action="../actions/usuario/requisicao_especialista.php" method="post" enctype="multipart/form-data">
 
 			<p>Selecione a sua área de formação</p>
 			<select name="formacao" id="formacao" required>
 				<option value="psicologia">psicologia</option>
 				<option value="pedagogia">pedagogia</option>
-				<option value="outra">outra</option>
+				<option value="outro">outra</option>
 			</select><br>
 			<p>Insira documento PDF que comprove formação</p>
-			<input type='file' accept='.pdf' required></input><br>
+			<input name='documento' type='file' accept='.pdf' required></input><br>
 			<button>Avançar</button>
 			<button type='button' class='cancelar'>Cancelar</button>
 		</form>
@@ -77,7 +78,10 @@ require_once("../config/validacoes.php");
 				echo "<form action='chat.php' method='post'>
 						<button class='item'>
 						<img src='../../public/uploads/{$user->foto}' alt='foto' class='foto'>
+						<div class='container'>
 						<h3>{$consulta['nome']}</h3>
+						<p>{$consulta['ultmsg']}</p>
+						</div>
 						<input type='hidden' name='idchat' value={$consulta['idchat']}>";
 				if($_SESSION['role']=='especialista'){
 					echo "<input type='hidden' name='idusuario' value={$consulta['idusuario']}>";
@@ -96,10 +100,7 @@ require_once("../config/validacoes.php");
 
 <aside>
 
-	<div id="chatcon">
-			
-
-	</div>
+	<!-- não remova -->
 
 </aside>
 

@@ -29,6 +29,10 @@ if($result->num_rows == 1){
         $_SESSION['email'] = $usuario->email;
         $_SESSION['role'] = $usuario->role;
         $_SESSION['foto'] = $usuario->foto;
+        if($_SESSION['role']=='admin'){
+            header("location: ../../pages/menuadm.php");
+        }
+
         header("location: ../../pages/consulta.php");
 
     }else{

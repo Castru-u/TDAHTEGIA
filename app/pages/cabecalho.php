@@ -4,7 +4,7 @@ if(!isset($_SESSION['logado'])){
 	header("location: home.php");
 }
 
-require_once('/opt/lampp/htdocs/TDAHTEGIA/app/config/validacoes.php');
+require_once('../config/validacoes.php');
 ?>
 
 <!DOCTYPE html>
@@ -15,9 +15,9 @@ require_once('/opt/lampp/htdocs/TDAHTEGIA/app/config/validacoes.php');
 <link rel="stylesheet" type="text/css" href="../../public/css/cabecalho.css">
 <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
 <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-<title>Comunidades</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Alatsi|Kanit">
+<link rel="shortcut icon" href="../../public/img/logo.png" type="image/x-icon">
 </head>
 
 

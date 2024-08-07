@@ -314,7 +314,7 @@
         <div class="botoes">
             <a id="botao1" class="botao" style="grid-area: b1;" href="login.php">Entre</a>
             <a id="botao3" class="botao" style="grid-area: b3;" href="cadastro.php">Cadastre-se</a>
-            <a id="botao2" class="botao" style="grid-area: b2;" href="saibamais.html">Saiba mais</a>
+            
         </div>
     </header>
 

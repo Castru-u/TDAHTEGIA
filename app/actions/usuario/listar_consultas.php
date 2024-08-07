@@ -39,7 +39,7 @@ GROUP BY
 ORDER BY 
     datamsg DESC;
 "; }
-elseif($_SESSION['role']=='comum'){
+else{
     $sql = "SELECT 
     chat.idchat, 
     chat.idusuario, 
