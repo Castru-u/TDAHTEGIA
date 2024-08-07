@@ -27,6 +27,6 @@ if (isset($_GET['action']) && $_GET['action'] === 'remove_user') {
 }
 desconecta();
 
-header("Location: ../../pages/crud.php?idcomunidade=" . $idcomunidade);
+header("Location: ../../pages/mostrar_comunidade.php?idcomunidade=" . $idcomunidade);
 exit();
 ?>

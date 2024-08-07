@@ -10,24 +10,20 @@
 <?php 
 require_once('cabecalho.php');
 require_once("../config/validacoes.php");
-require_once("../config/conecta.php"); // Inclui o arquivo de conexão
+require_once("../config/conecta.php");
 
-// Verificar se o usuário está logado
 if (!isset($_SESSION['id_usuario'])) {
     header("Location: login.php");
     exit();
 }
 
-// Acessar informações do usuário
 $idusuario = $_SESSION['id_usuario']; 
 $usuario = $_SESSION['email']; 
 $nome = $_SESSION['nome']; 
 
 define('BASE_PATH', __DIR__ . '/../../app/pages');
 
-// Estabelece a conexão com o banco de dados
-conecta(); // Usa a função do arquivo conecta.php para conectar ao banco de dados
-
+conecta(); 
 $categorias = ["matematica", "fisica", "quimica", "biologia", "vestibular"];
 
 $categoriaSelecionada = isset($_GET['categoria']) ? $_GET['categoria'] : '';
@@ -54,7 +50,7 @@ if ($pesquisa) {
     $types_minhas .= 's';
 }
 
-$stmt_minhas = $mysqli->prepare($sql_minhas); // Usa $mysqli do conecta.php
+$stmt_minhas = $mysqli->prepare($sql_minhas); 
 $stmt_minhas->bind_param($types_minhas, ...$params_minhas);
 $stmt_minhas->execute();
 $result_minhas = $stmt_minhas->get_result();
@@ -77,7 +73,7 @@ if ($pesquisa) {
     $types_outros .= 'ss';
 }
 
-$stmt_outros = $mysqli->prepare($sql_outros); // Usa $mysqli do conecta.php
+$stmt_outros = $mysqli->prepare($sql_outros); 
 if ($types_outros) {
     $stmt_outros->bind_param($types_outros, ...$params_outros);
 }
@@ -103,7 +99,7 @@ desconecta();
 
             <!-- Botão Criar Comunidade -->
             <div class="button-container">
-                <a href="criar_comunidade.php" class="btn-criar"><img src="../../public/img/MAIS.svg" alt="" class="btn-img"></a>
+                <button id="createCommunity" class="btn-criar"><img src="../../public/img/MAIS.svg" alt="" class="btn-img"></button>
             </div>
         </div>
 
@@ -118,8 +114,8 @@ desconecta();
             <h1>MINHAS COMUNIDADES</h1>
             <?php if ($result_minhas->num_rows > 0): ?>
                 <?php while($row_minhas = $result_minhas->fetch_assoc()): ?>
-                    <div class="blococom">
-                        <div class="comunidade" id="redirectDiv">
+                    <div class="blococom" >
+                        <div class="comunidade" id="redirectDiv_<?php echo $row_minhas['idcomunidade']; ?>">
                             <?php if ($row_minhas['imagem']): ?>
                                 <img src="data:image/jpeg;base64,<?php echo base64_encode($row_minhas['imagem']); ?>" alt="">
                             <?php else: ?>
@@ -131,9 +127,8 @@ desconecta();
                             </div>
                         </div>
                         <div class="botoes_crud">
-                            <button class="btn_entrar_cm" data-id="<?php echo $row_minhas['idcomunidade']; ?>" data-acao="sair">Sair</button> 
+                            <button class="btn_entrar_cm" data-id="<?php echo $row_minhas['idcomunidade']; ?>" data-acao="sair">Sair</button>
                             <button class="btn_entrar_cm" onclick="redirectToEdit(<?php echo $row_minhas['idcomunidade']; ?>)">Editar</button>
-
                         </div>
                     </div>
                 <?php endwhile; ?>
@@ -142,13 +137,12 @@ desconecta();
             <?php endif; ?>
         </div>
 
-        <!-- Sugestões de Comunidades -->
+        <!-- Outras Comunidades -->
         <div class="sugestoes_de_comunidade">
             <h1>OUTRAS COMUNIDADES</h1>
             <?php if ($result_outros->num_rows > 0): ?>
                 <?php while($row_outros = $result_outros->fetch_assoc()): ?>
                     <?php
-                        // Verifica se a comunidade já foi exibida
                         $already_displayed = false;
                         if ($result_minhas->num_rows > 0) {
                             $result_minhas->data_seek(0); 
@@ -162,7 +156,7 @@ desconecta();
                     ?>
                     <?php if (!$already_displayed): ?>
                         <div class="blococom">
-                            <div class="comunidade" id="redirectDiv">
+                            <div class="comunidade">
                                 <?php if ($row_outros['imagem']): ?>
                                     <img src="data:image/jpeg;base64,<?php echo base64_encode($row_outros['imagem']); ?>" alt="">
                                 <?php else: ?>
@@ -174,7 +168,7 @@ desconecta();
                                 </div>
                             </div>
                             <div class="botoes_crud">
-                                <button class="btn_entrar_cm" data-id="<?php echo $row_outros['idcomunidade']; ?>" data-acao="entrar">Entrar</button>
+                                <button class="btn_entrar_cm" data-id="<?php echo $row_outros['idcomunidade']; ?>" data-acao="entrar">Participar</button>
                             </div>
                         </div>
                     <?php endif; ?>
@@ -185,87 +179,7 @@ desconecta();
         </div>
     </main>
     <footer><p id="textobaixo">TDAHTÉGIA &#169;<br>77 98251760</p></footer>
-               
-    <script>
-    function redirectToEdit(comunidadeId) {
-        window.location.href = 'crud.php?idcomunidade=' + comunidadeId;
-    }
 
-    document.querySelectorAll('.btn_entrar_cm').forEach(button => {
-        button.addEventListener('click', function() {
-            const comunidadeId = this.getAttribute('data-id');
-            const acao = this.getAttribute('data-acao');
-
-            if (acao) {
-                fetch('../actions/comunidade/entrar_e_sair_comunidade.php', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    },
-                    body: new URLSearchParams({
-                        'idcomunidade': comunidadeId,
-                        'acao': acao
-                    })
-                })
-                .then(response => response.text())
-                .then(result => {
-                    alert(result); // Exibe o resultado do PHP
-                    location.reload(); // Atualiza a página
-                })
-                .catch(error => console.error('Erro:', error));
-            }
-        });
-    });
-
-    function updateQueryStringParameter(uri, key, value) {
-        var re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
-        var separator = uri.indexOf('?') !== -1 ? "&" : "?";
-        if (uri.match(re)) {
-            return uri.replace(re, '$1' + key + "=" + value + '$2');
-        } else {
-            return uri + separator + key + "=" + value;
-        }
-    }
-
-    function handleInputChange(event) {
-        if (event.key === 'Enter' || event.type === 'change') {
-            event.preventDefault();
-            const searchInput = document.getElementById('search').value.trim();
-            const categorySelect = document.getElementById('category').value;
-            let url = window.location.pathname;
-
-            // Atualiza o parâmetro da pesquisa
-            if (searchInput) {
-                url = updateQueryStringParameter(url, 'pesquisa', searchInput);
-            } else {
-                url = updateQueryStringParameter(url, 'pesquisa', '');
-            }
-
-            // Atualiza o parâmetro da categoria
-            if (categorySelect) {
-                url = updateQueryStringParameter(url, 'categoria', categorySelect);
-            } else {
-                url = updateQueryStringParameter(url, 'categoria', '');
-            }
-
-            // Redireciona para a nova URL
-            window.location.href = url;
-        }
-    }
-
-    document.getElementById('search').addEventListener('keydown', function(event) {
-        if (event.key === 'Enter') {
-            handleInputChange(event);
-        }
-    });
-
-    document.getElementById('category').addEventListener('change', handleInputChange);
-
-     // JavaScript para redirecionamento
-     document.getElementById('redirectDiv').addEventListener('click', function() {
-            window.location.href = 'http://localhost/TDAHTEGIA/app/pages/comunidade.php'; // URL para onde será redirecionado
-        });
-</script>
-
+    <script src="../../public/js/mostrar.js"></script>
 </body>
 </html>

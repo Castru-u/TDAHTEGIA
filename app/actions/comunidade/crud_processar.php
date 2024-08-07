@@ -1,16 +1,14 @@
 <?php
 session_start();
 require_once("../../config/validacoes.php");
-require_once("../../config/conecta.php"); // Inclui o arquivo de conexão
+require_once("../../config/conecta.php");
 
-// Verifica se o usuário está logado
 if (!isset($_SESSION['id_usuario'])) {
     header("Location: ../../pages/login.php");
     exit();
 }
 
-// Estabelece a conexão com o banco de dados
-conecta(); // Usa a função do arquivo conecta.php para conectar ao banco de dados
+conecta(); 
 
 $action = $_POST['action'] ?? '';
 $idcomunidade = intval($_POST['idcomunidade'] ?? 0);
@@ -25,15 +23,14 @@ switch ($action) {
     case 'create':
         if (!empty($_FILES['imagem']['tmp_name'])) {
             $imagem = file_get_contents($_FILES['imagem']['tmp_name']);
-        } else {
-            $imagem = null;
         }
 
         $stmt = $mysqli->prepare("INSERT INTO comunidades (nome, descricao, categoria, imagem) VALUES (?, ?, ?, ?)");
         $stmt->bind_param('ssss', $nome, $descricao, $categoria, $imagem);
         if ($stmt->execute()) {
-            header("Location: ../../pages/crud.php?success=1");
+            header("Location: ../../pages/mostrar_comunidade.php?success=1");
         } else {
+            error_log("Erro ao criar comunidade: " . $stmt->error); // Adiciona log de erro
             header("Location: ../../pages/crud.php?error=1");
         }
         $stmt->close();
@@ -51,6 +48,7 @@ switch ($action) {
         if ($stmt->execute()) {
             header("Location: ../../pages/mostrar_comunidade.php?idcomunidade=$idcomunidade&success=1");
         } else {
+            error_log("Erro ao atualizar comunidade: " . $stmt->error); // Adiciona log de erro
             header("Location: ../../pages/mostrar_comunidade.php?idcomunidade=$idcomunidade&error=1");
         }
         $stmt->close();
@@ -62,6 +60,7 @@ switch ($action) {
         if ($stmt->execute()) {
             header("Location: ../../pages/mostrar_comunidade.php?idcomunidade=$idcomunidade&success=1");
         } else {
+            error_log("Erro ao adicionar usuário: " . $stmt->error); // Adiciona log de erro
             header("Location: ../../pages/crud.php?idcomunidade=$idcomunidade&error=1");
         }
         $stmt->close();
@@ -73,15 +72,54 @@ switch ($action) {
         if ($stmt->execute()) {
             header("Location: ../../pages/mostrar_comunidade.php?idcomunidade=$idcomunidade&success=1");
         } else {
+            error_log("Erro ao remover usuário: " . $stmt->error); // Adiciona log de erro
             header("Location: ../../pages/crud.php?idcomunidade=$idcomunidade&error=1");
         }
         $stmt->close();
+        break;
+
+    case 'delete':
+        // Inicie uma transação para garantir a integridade dos dados
+        $mysqli->begin_transaction();
+        try {
+            // Exclua as postagens associadas à comunidade
+            $stmt = $mysqli->prepare("DELETE FROM postagem WHERE idcomunidade = ?");
+            $stmt->bind_param('i', $idcomunidade);
+            $stmt->execute();
+            $stmt->close();
+
+            // Exclua os comentários associados às postagens da comunidade
+            $stmt = $mysqli->prepare("DELETE FROM comentarios_postagem WHERE idcomunidade = ?");
+            $stmt->bind_param('i', $idcomunidade);
+            $stmt->execute();
+            $stmt->close();
+
+            // Exclua os usuários associados à comunidade
+            $stmt = $mysqli->prepare("DELETE FROM comunidade_usuario WHERE idcomunidade = ?");
+            $stmt->bind_param('i', $idcomunidade);
+            $stmt->execute();
+            $stmt->close();
+
+            // Exclua a comunidade
+            $stmt = $mysqli->prepare("DELETE FROM comunidades WHERE idcomunidade = ?");
+            $stmt->bind_param('i', $idcomunidade);
+            $stmt->execute();
+            $stmt->close();
+
+            // Confirme a transação
+            $mysqli->commit();
+            header("Location: ../../pages/mostrar_comunidade.php");
+        } catch (Exception $e) {
+
+            $mysqli->rollback();
+            error_log("Erro ao deletar comunidade: " . $e->getMessage()); 
+            header("Location: ../../pages/crud.php?error=1");
+        }
         break;
 
     default:
         header("Location: ../../pages/crud.php?error=1");
 }
 
-// Fecha a conexão com o banco de dados
-desconecta();
+desconecta(); 
 ?>
