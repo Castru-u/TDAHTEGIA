@@ -101,7 +101,8 @@ nav{
     width: 100%;
     align-items: center;
     position: relative;
-    bottom: 0px
+    bottom: 0px;
+    margin-top: 20px;
 }
  
 .botoes {
@@ -153,3 +154,7 @@ nav{
     }
 
 }
+
+
+
+

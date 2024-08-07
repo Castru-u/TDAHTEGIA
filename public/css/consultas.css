@@ -1,3 +1,7 @@
+main {
+    background-color: #d1d1d1;
+}
+
 .bloco {
     padding: 20px 30px;
     border-radius: 12px;
@@ -25,9 +29,12 @@
 .blococon{
     min-height: 300px;
     margin: 35px;
+    width:69%;
     box-shadow: black 0 0 5px;
+    background-color: #FFF;
     border-radius: 40px;
     padding: 30px;
+    align-self: center;
 }
 
 .blococon h2{

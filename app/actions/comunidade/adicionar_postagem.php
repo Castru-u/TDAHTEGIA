@@ -55,7 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_FILES['arquivo']) && $_FILES['arquivo']['error'] === UPLOAD_ERR_OK) {
         $arquivoNome = $_FILES['arquivo']['name'];
         $arquivoTmpNome = $_FILES['arquivo']['tmp_name'];
-        $diretorioUploads = '/opt/lampp/htdocs/TDAHTEGIA/public/uploads/';
+        $diretorioUploads = '../../../public/uploads/';
         $arquivoNovoNome = uniqid('', true) . '-' . basename($arquivoNome);
         $caminhoArquivo = $diretorioUploads . $arquivoNovoNome;
 
@@ -224,7 +224,7 @@ body {
         <form action="adicionar_postagem.php?idcomunidade=<?php echo htmlspecialchars($idcomunidade); ?>" method="post" enctype="multipart/form-data">
             <input type="text" name="titulo" placeholder="Título da Postagem" required>
             <textarea name="conteudo" placeholder="Digite o conteúdo da postagem..." required></textarea>
-            <input type="file" name="arquivo" accept="image/*,video/*,.pdf">
+            <input type="file" name="arquivo" accept="image/*,video/*,.pdf" required>
             <input type="hidden" name="idcomunidade" value="<?php echo htmlspecialchars($idcomunidade); ?>">
             <input type="submit" value="Adicionar Postagem">
         </form>

@@ -10,7 +10,7 @@ if($_SESSION['role']!='admin'){
 
 ?>
 <link rel="stylesheet" href="../../public/css/menuadm.css">
-
+<title>ADM</title>
 <main>
 
     <div id='requisicoes'>

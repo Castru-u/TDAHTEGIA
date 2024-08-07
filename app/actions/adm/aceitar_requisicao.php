@@ -4,7 +4,7 @@ session_start();
 
 require_once("../../config/conecta.php");
 
-$id = $_POST['id    usuario'];
+$id = $_POST['idusuario'];
 
 conecta();
 

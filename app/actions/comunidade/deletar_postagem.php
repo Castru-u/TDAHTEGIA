@@ -32,6 +32,12 @@ if (isset($_GET['idpostagem'])) {
         $idcomunidade = $post['idcomunidade']; // Obtém o idcomunidade da postagem
         if ($post['idusuario'] == $idusuario || $is_admin) {
             // Deleta a postagem
+            $sql_delete = "DELETE FROM comentarios_postagem WHERE idpostagem = ?";
+            $stmt_delete = $mysqli->prepare($sql_delete);
+            $stmt_delete->bind_param("i", $idpostagem);
+            $stmt_delete->execute();
+
+
             $sql_delete = "DELETE FROM postagem WHERE idpostagem = ?";
             $stmt_delete = $mysqli->prepare($sql_delete);
             $stmt_delete->bind_param("i", $idpostagem);

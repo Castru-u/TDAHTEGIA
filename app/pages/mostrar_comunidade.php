@@ -83,7 +83,7 @@ $result_outros = $stmt_outros->get_result();
 desconecta();
 ?>
 
-
+<title>Comunidade</title>
     <main class="container_main">
         <!-- Barra de Pesquisa e Seletor de Categorias -->
         <div class="search-container">

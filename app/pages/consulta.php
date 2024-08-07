@@ -98,11 +98,7 @@ require_once("../config/validacoes.php");
 	</div>
 </main>
 
-<aside>
-
-	<!-- não remova -->
-
-</aside>
+	
 
 <footer><p id="textobaixo">TDAHTÉGIA	&#169;<br>77 98251760</p></footer>
 

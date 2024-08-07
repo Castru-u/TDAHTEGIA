@@ -33,9 +33,9 @@
         .container-2 h1{
             font-size: 40px;
             margin-top: 50px;
-            /* font-family:Paytone One !important; */
-            color: blue;
-            letter-spacing: 2px; /* Adiciona espaçamento entre as letras */
+
+            color: white;
+            letter-spacing: 2px;
             font-weight: bold; 
             font-family: Codec,'Arial Narrow Bold', sans-serif;
             line-height: 1.2 !important;
@@ -66,9 +66,11 @@
             margin-left: 5px;
         }
         .titulo_main{
-            height: 600px;
+            min-height: 600px;
             width: 100%;
             background-image: url(../../public/img/fundo.png);
+            flex-wrap: wrap;
+            justify-content: center;
         }
         .passagem {
             width: 450px;
@@ -76,7 +78,10 @@
             background-color: grey;
             margin-top: 3%;
             margin-left: 6%;
+            margin-bottom: 60px;
             border-radius: 8px;
+            border: solid 5px gray
+            box-shadow: black 0 0 4px;
             overflow: hidden; /* Esconde as imagens que ultrapassam o container */
             position: relative;
         }
@@ -91,17 +96,15 @@
         .carousel img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
             flex-shrink: 0; /* Impede que as imagens diminuam de tamanho */
         }
         
         .container_depoimentos {
                     display: inline-block;
                     text-align: center;
-                    margin-top: 0%;
+                    padding-top:40px;
                     /* margin-bottom: 5%; */
                     height: 400px;
-                    padding: 20px;
                     background-color: antiquewhite;
                 }
                 .container_depoimentos h1 {
@@ -265,15 +268,15 @@
               margin-top: 10px;
             }
         .sobre_tdah{
-                font-size: 30px;
-              color: #FF914d;
-              font-weight: bold; 
-              font-family: Codec, 'Arial Narrow Bold', sans-serif;
-              text-shadow: rgba(0, 0, 0, 0.3) 0px 3px 4px;
-              margin-bottom: 20px;
-              background-image: url(../../public/img/fundo.png);
-              text-align: center;
-              justify-content: center;
+            font-size: 30px;
+            color: #FF914d;
+            font-weight: bold; 
+            font-family: Codec, 'Arial Narrow Bold', sans-serif;
+            text-shadow: rgba(0, 0, 0, 0.3) 0px 3px 4px;
+            background-color: gray;
+            padding: 20px;
+            text-align: center;
+            justify-content: center;
         }
         </style>
 </head>
@@ -322,9 +325,9 @@
         <p id="texto">Uma estratégia<br> para o Estudo</p>
         <div class="passagem">
             <div class="carousel" id="carousel">
-                <img src="../../public/img/seila2.png" alt="Imagem 1">
-                <img src="../../public/img/testets.jpeg" alt="Imagem 2">
-                <img src="../../public/img/saibamais.png" alt="Imagem 3">
+                <img src="../../public/img/printconsults.png" alt="Imagem 1">
+                <img src="../../public/img/printchat.png" alt="Imagem 2">
+                <img src="../../public/img/printcmndd.png" alt="Imagem 3">
             </div>
         </div>
     </div>
@@ -333,25 +336,7 @@
         <h1>SOBRE O TDAH</h1>
     </div>
 
-    <div class="parte_de_cima">
-        <div class="texo_lado_esquerdo">
-            <h1>SINTOMAS DO TDAH EM ADOLESCENTES</h1>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci excepturi expedita neque hic eos tempore aspernatur facere quod at nulla nemo dolor saepe, cum quos deleniti soluta minus eius dignissimos!</p>
-        </div>
-        <div class="image">
-            <img src="../../public/img/tdah_menino.jpeg" alt="">
-        </div>
-    </div>
 
-    <div class="baixo">
-        <div class="imagem">
-            <img src="../../public/img/tdah_menino.jpeg" alt="">
-        </div>
-        <div class="texo_lado_direito">
-            <h1>DEPRESSÃO E TDAH</h1>
-            <p>O que é o TDAH? Antes de olharmos o relacionamento entre o TDAH e a Depressão, é muito importante compreender o que está envolvido individualmente em cada um destes distúrbios. O Transtorno do Déficit de Atenção com...</p>
-        </div>
-    </div>
 
     <div class="container-2">
         <h1>O QUE É TDAH ?<br></h1>
@@ -384,25 +369,23 @@
             <img src="../../public/img/seila.png" alt="">
         </div>
     </div>
-    <div class="container_depoimentos">
-        <h1>DEPOIMENTOS</h1>
-        <div class="depoimentos_comentarios active">
-            <p class="depoimento">Como pai de uma criança com TDAH, o suporte que encontramos aqui foi essencial para nos ajudar a entender e apoiar nosso filho.” – João Pedro
-                <br>Leia Mais Depoimentos</p>
+
+
+    <div class="parte_de_cima">
+        <div class="texo_lado_esquerdo">
+            <h1>SINTOMAS DO TDAH EM ADOLESCENTES</h1>
+            <p>- Problemas em prestar atenção a detalhes e tendência a cometer erros por descuido.<br><br>
+- Pode ter problemas para seguir instruções ou finalizar tarefas escolares ou outras atividades.<br><br>
+- Dificuldade em organizar tarefas e atividades, resultando em trabalhos escolares incompletos e desorganizados.<br><br>
+- Tendência a perder coisas necessárias para tarefas e atividades, como materiais escolares, livros, e até itens pessoais.<br><br>
+- Esquecimento frequente em atividades diárias, como tarefas domésticas e compromissos.</p>
         </div>
-        <div class="depoimentos_comentarios">
-            <p class="depoimento">A orientação e o apoio da equipe foram fundamentais para o desenvolvimento do meu filho.” – Maria Silva
-                <br> <a href="#">Leia Mais Depoimentos</a></p>
-        </div>
-        <div class="depoimentos_comentarios">
-            <p class="depoimento">Os recursos oferecidos são incríveis e têm ajudado muito na nossa jornada.” – Carlos Souza
-                <br><a href="#">Leia Mais Depoimentos</a></p>
-        </div>
-        <div class="depoimentos_comentarios">
-            <p class="depoimento">Os recursos oferecidos são incríveis e têm ajudado muito na nossa jornada.” – Carlos Souza
-               <br> <a href="#">Leia Mais Depoimentos</a> </p>
+        <div class="image">         
+            <img src="../../public/img/pexels-olly-3769981.jpg" alt="">
         </div>
     </div>
+
+
     
     <nav>
         <p id="textobaixo">TDAHTÉGIA	&#169;<br>77 98251760</p>

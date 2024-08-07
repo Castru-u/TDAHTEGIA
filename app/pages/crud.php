@@ -11,7 +11,7 @@
     <?php require_once 'cabecalho.php';?>
 
     <?php
-    session_start();
+    //session_start();
     require_once("../config/validacoes.php");
 
     if (!isset($_SESSION['id_usuario'])) {
@@ -173,5 +173,6 @@
         </table>
     </main>
     <footer><p id="textobaixo">TDAHTÉGIA &#169;<br>77 98251760</p></footer>
+    
 </body>
 </html>

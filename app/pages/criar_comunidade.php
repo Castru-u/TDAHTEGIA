@@ -3,7 +3,6 @@ define('BASE_PATH', __DIR__ . '/../../app/pages');
 require_once(BASE_PATH . '/cabecalho.php');
 require_once('../config/conecta.php');
 
-session_start();
 if (!isset($_SESSION['id_usuario'])) {
     header("Location: ../../app/pages/login.php");
     exit();

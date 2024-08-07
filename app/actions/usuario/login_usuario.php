@@ -31,6 +31,7 @@ if($result->num_rows == 1){
         $_SESSION['foto'] = $usuario->foto;
         if($_SESSION['role']=='admin'){
             header("location: ../../pages/menuadm.php");
+            exit;
         }
 
         header("location: ../../pages/consulta.php");

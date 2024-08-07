@@ -1,18 +1,14 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Publicações</title>
     <link rel="stylesheet" href="../../public/css/comunidade.css">
     <script src="../../public/js/publicacoes.js" defer></script>
-</head>
-<body>
+
+
+
     <?php 
     require_once('cabecalho.php'); 
     require_once('../config/validacoes.php');
-    
-    session_start();
 
     if (!isset($_SESSION['id_usuario'])) {
         header("Location: login.php");

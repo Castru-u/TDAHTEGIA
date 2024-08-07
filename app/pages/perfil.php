@@ -5,7 +5,7 @@ require_once("cabecalho.php");
 
 ?>
 <link rel="stylesheet" href="../../public/css/perfil.css">
-
+<title>Perfil</title>
 <main>
 		<div class="form">
 			<form action="../actions/usuario/alterar_usuario.php" method='POST' enctype="multipart/form-data">
